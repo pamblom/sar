@@ -1,0 +1,599 @@
+SISTEMA DE ACOPIO DE RESIDUOS
+Documento de Análisis de Requerimientos
+3.1 Portada del proyecto
+Código Proyecto:
+SAR-2026-01
+Nombre del proyecto:
+Sistema de Acopio de Residuos (SAR): registro, pesaje, puntuación, ranking y reportes ambientales para el proceso de acopio de material reciclable
+Curso:
+Análisis de Requerimientos
+Docente:
+Luis Alfredo Blanquicett Benavides
+Integrantes:
+Juan Daniel Hernández Peinado, Jean Carlos Saldaña Peñaranda, Juan Manuel Llanes, Pablo Corrales, Jaime Ochoa
+Fecha:
+25 de septiembre de 2026
+Versión del documento:
+2.0
+3.2 Contexto del problema y actores
+Actualmente, la gestión y el acopio de residuos presentan dificultades relacionadas con la separación, recolección, almacenamiento y control de los residuos. En muchos espacios, los residuos son depositados de manera incorrecta, lo que dificulta su clasificación y aprovechamiento, además de generar acumulación de basura, malos olores y contaminación.
+A esto se suma la falta de un mecanismo que permita llevar un control organizado de los residuos recolectados, conocer qué tipos de residuos se reciben, registrar las cantidades y facilitar el seguimiento del proceso de acopio.
+Este problema es especialmente relevante en el contexto de Cartagena de Indias. La ciudad se encuentra entre las de mayor generación de residuos por habitante del país: entre 2013 y 2018 la producción diaria por persona pasó de 1,00 kg a 1,28 kg, alcanzando un total de 484.282 toneladas de residuos sólidos producidas en 2018, de las cuales apenas el 1,06 % logró ser reciclado en el relleno sanitario. A esta baja tasa de aprovechamiento se suma la falta de formalización del sector reciclador: para 2016 se contabilizaron en la ciudad 1.782 recicladores de oficio, de los cuales solo el 26 % pertenecía a alguna organización o asociación autorizada.
+A finales de 2024 la Alcaldía de Cartagena actualizó el Plan de Gestión Integral de Residuos Sólidos (PGIRS), con vigencia hasta 2027, luego de que una revisión técnica evidenciara que el plan anterior se ejecutaba en menos del 50 %. Entre sus objetivos declarados están mejorar la gestión de los desechos, fomentar la cultura del reciclaje y reducir la cantidad de residuos que llega al relleno sanitario Loma de los Cocos, fortaleciendo las cadenas de reciclaje hacia una economía circular. El proyecto que se documenta a continuación se enmarca en esta necesidad vigente de la ciudad.
+Por esta razón, se propone desarrollar un sistema de acopio de residuos que permita gestionar de manera organizada la recepción, clasificación, registro y almacenamiento temporal de los residuos. El sistema busca facilitar el control de la información, mejorar la organización del proceso y contribuir a una adecuada gestión y aprovechamiento de los residuos, por medio de un sistema de métricas basado en puntos y ranking.
+Actores del proceso
+El sistema involucra a tres actores principales, cuyo detalle de rol, responsabilidad e interacción se documenta formalmente en el punto 3.4: el Administrador del sistema (gestión interna y reportes), el Reciclador (actor externo que entrega el material) y el Operador de acopio (recibe, clasifica, pesa y registra el material). El mapa de actores gráfico se anexará una vez finalizado el diagrama de proceso en Bizagi.
+3.3 Técnicas de elicitación seleccionadas y justificación
+Para la obtención de los requerimientos de este proyecto se seleccionaron tres técnicas de elicitación, aplicadas en un orden secuencial que permite avanzar de lo general a lo específico:
+1. Observación directa
+Se realizarán observaciones del proceso actual de recepción y pesaje de residuos en un centro de acopio de la ciudad. Esta técnica se aplica primero porque el proceso de acopio es fundamentalmente físico y operativo: antes de preguntar a los involucrados cómo funciona, es necesario verlo en sitio para entender el flujo real de materiales, las herramientas usadas hoy (bandas, básculas, registros en papel) y los puntos donde ocurren errores o demoras. Sin esta base, una entrevista posterior correría el riesgo de recoger una versión idealizada del proceso en lugar de la real.
+2. Entrevistas
+Se realizarán entrevistas con centros de acopio sobre el proceso de pesaje y clasificación. Se aplican después de la observación directa, ya con un panorama general del proceso, para profundizar en detalles que no son visibles a simple vista: criterios exactos de clasificación por tipo de material, cómo se determinan hoy los incentivos o pagos, y qué reglas de negocio existen (por ejemplo, materiales que se rechazan). Esta técnica es apropiada porque permite un diálogo abierto y de profundidad con quienes operan el proceso día a día, algo que una encuesta cerrada no permite obtener.
+3. Encuestas
+Se realizarán encuestas a usuarios finales (recicladores) sobre los incentivos deseados (puntos/rankings). Se aplican al final porque su propósito es distinto: mientras que la observación y las entrevistas buscan entender el proceso operativo actual, la encuesta busca validar con una muestra más amplia de recicladores qué tipo de incentivos perciben como valiosos, y así diseñar un sistema de puntuación que realmente motive la participación. Al aplicarse sobre un universo más grande de personas, complementa la profundidad de la entrevista con representatividad.
+Las tres técnicas fueron elegidas en conjunto porque se complementan: la observación directa aporta el contexto físico del proceso, las entrevistas aportan el detalle funcional y las reglas de negocio desde quienes ya operan un centro de acopio, y las encuestas aportan la validación cuantitativa del mecanismo de incentivos (puntos/ranking), que es el componente diferencial de este sistema frente a un simple registro de inventario.
+3.4 Lista inicial de stakeholders
+Rol
+Tipo
+Responsabilidad
+Interacción con el sistema
+Administrador del sistema
+Interno
+Gestión de usuarios, creación de reportes ambientales, gestión de puntajes y evaluación del ranking.
+Consulta y administra la información consolidada del sistema.
+Reciclador
+Externo
+Entregar material reciclable para su clasificación y pesaje; consultar sus puntos y posición en el ranking.
+Entrega material y recibe notificaciones de puntos asignados.
+Operador de acopio
+Interno
+Recibir, clasificar y pesar los materiales; registrar y confirmar la información en el sistema.
+Registra directamente la información de cada entrega de material.
+3.5 Alcance del MVP y restricciones
+Objetivo del MVP
+Permitir que un operador registre y pese materiales reciclables, que el sistema calcule automáticamente los puntos correspondientes, y que el reciclador pueda consultar su puntaje acumulado, resolviendo así la falta de control organizado del proceso de acopio.
+Alcance incluido
+Prioridad
+Funcionalidad
+Must Have
+Registro de materiales
+Must Have
+Cálculo del peso de materiales
+Must Have
+Puntaje por kilo de material
+Should Have
+Ranking de recicladores según puntos acumulados
+Could Have
+Reportes ambientales básicos
+Fuera de alcance
+Reportes ambientales avanzados (comparativos históricos, exportación en múltiples formatos).
+Integración con dispositivos de pesaje automatizados (báscula conectada al sistema).
+Notificaciones automáticas avanzadas o gamificación adicional (medallas, niveles).
+Restricciones
+Tiempo de desarrollo limitado al periodo académico del curso.
+Equipo de desarrollo conformado por 5 integrantes.
+El registro de peso se realiza manualmente por el operador; no hay integración con hardware de pesaje en esta fase.
+3.6 Objetivos general y específicos
+Objetivo general
+Desarrollar un sistema de acopio de residuos que permita gestionar de manera organizada el registro, pesaje y puntuación de los materiales reciclables, con el fin de mejorar el control del proceso de acopio y fomentar la participación de los recicladores mediante un sistema de incentivos.
+Objetivos específicos
+Implementar un módulo de registro de materiales que permita a los operadores clasificar y almacenar la información de los residuos recibidos.
+Desarrollar una funcionalidad de cálculo automático del peso de los materiales registrados, a partir de la información ingresada por el operador.
+Diseñar un sistema de puntuación por kilogramo de material, que asigne puntos a cada reciclador según la cantidad y tipo de material entregado.
+Generar un ranking de recicladores con base en los puntos acumulados, que permita visualizar su participación frente a otros usuarios.
+Producir reportes ambientales que resuman la cantidad y tipo de materiales acopiados en un periodo determinado.
+3.7 Justificación
+La gestión de residuos sólidos en Cartagena presenta una problemática estructural y vigente. La ciudad se encuentra entre las de mayor generación de residuos por habitante en el país: entre 2013 y 2018 la producción diaria pasó de 1,00 kg a 1,28 kg por persona, alcanzando un total de 484.282 toneladas de residuos sólidos en 2018, de las cuales apenas el 1,06 % logró ser reciclado en el relleno sanitario. Esta baja tasa de aprovechamiento evidencia que gran parte del material reciclable se pierde por falta de mecanismos organizados de recolección, clasificación y seguimiento, exactamente el problema que este proyecto busca atender.
+A esta situación se suma la falta de formalización del sector reciclador: para 2016 se contabilizaron en la ciudad 1.782 recicladores de oficio, de los cuales solo el 26 % pertenecía a alguna organización o asociación autorizada, lo que limita su acceso a herramientas, reconocimiento y condiciones dignas de trabajo. Un sistema que registre pese y puntúe su labor no solo organiza el proceso operativo, sino que también visibiliza y dignifica el trabajo de este actor clave en la cadena de aprovechamiento.
+El proyecto además responde a una prioridad institucional vigente: a finales de 2024 la Alcaldía de Cartagena actualizó el Plan de Gestión Integral de Residuos Sólidos (PGIRS) con vigencia hasta 2027, luego de que una revisión técnica evidenciara que el plan anterior se ejecutaba en menos del 50 %. Entre sus objetivos declarados están mejorar la gestión de los desechos, fomentar la cultura del reciclaje y reducir la cantidad de residuos que llega al relleno sanitario Loma de los Cocos, fortaleciendo las cadenas de reciclaje hacia una economía circular. Un sistema de acopio de residuos con registro, trazabilidad y métricas se alinea directamente con estos objetivos distritales, aportando una herramienta tecnológica concreta a una meta que hoy depende en gran parte de procesos manuales y desarticulados.
+Ante este panorama, se justifica el desarrollo de un sistema de software que centralice y organice la información del proceso de acopio, ya que permite eliminar el registro manual disperso, reducir errores de clasificación y pesaje, y disponer de datos confiables y trazables sobre los materiales gestionados, algo que hoy no existe de forma sistemática en los centros de acopio de la ciudad.
+El proyecto beneficia directamente a los tres actores identificados: los operadores cuentan con una herramienta que agiliza el registro y pesaje de materiales; los recicladores obtienen visibilidad sobre su participación y los puntos que acumulan, lo que incentiva su compromiso y reconoce su labor; y el administrador dispone de información centralizada para generar reportes, gestionar puntajes y evaluar el desempeño general del proceso de acopio.
+Finalmente, el componente de puntuación y ranking aporta un valor diferencial: convierte el acopio de residuos en un proceso motivador para el reciclador, incentivando una participación más activa y constante. A mediano plazo, esto puede traducirse en un mayor volumen de material correctamente clasificado y en datos concretos, a través de los reportes ambientales del sistema, que respalden el seguimiento de metas como las planteadas en el PGIRS 2024-2027 de Cartagena.
+Fuentes consultadas
+Alcaldía Mayor de Cartagena de Indias. Cartagena tiene actualizado su Plan de Gestión Integral de Residuos Sólidos (PGIRS) hasta el 2027.
+Revista Metro. Cartagena actualiza su Plan de Gestión Integral de Residuos Sólidos -Pgirs- hasta el 2027.
+Cartagena Cómo Vamos. ¿El reciclaje ha sido una apuesta en Cartagena?
+SciELO. El oficio del reciclador y la educación ambiental: experiencias de recicladores en Cartagena, Colombia.
+3.8 Marco teórico de ingeniería de requisitos y del dominio
+A. Marco teórico de Ingeniería de Requisitos
+¿Qué es un requerimiento?
+Un requerimiento es una capacidad o condición que un usuario necesita para resolver un problema o alcanzar un objetivo concreto dentro de un sistema. No es simplemente una petición del cliente, sino la traducción de una necesidad real del negocio en algo que el sistema debe cumplir.
+Características de un buen requerimiento
+Característica
+Significado
+Necesario
+Su ausencia generaría una consecuencia real; si no aporta nada al eliminarlo, no es un requerimiento válido.
+Completo
+No requiere información adicional para ser entendido.
+Consistente
+No contradice a otro requerimiento del mismo sistema.
+Correcto
+Refleja un acuerdo real entre las partes y contiene una sola idea.
+Factible
+Es realizable dentro del presupuesto, tiempo y tecnología disponibles.
+Modificable
+Puede ajustarse sin afectar la coherencia del resto de la especificación.
+Priorizado
+Tiene asignado un nivel de importancia (esencial, deseado, opcional).
+Verificable
+Puede comprobarse mediante inspección, prueba o demostración.
+Rastreable
+Puede vincularse desde su origen (necesidad del stakeholder) hasta su implementación.
+Claro
+Es fácil de leer y entender por cualquier persona que lo consulte.
+Clasificación de los requerimientos (pirámide de requerimientos)
+Los requerimientos se agrupan en tres niveles, de lo más general a lo más específico:
+Necesidades: oportunidades o problemas de negocio de los stakeholders. En este proyecto, la necesidad raíz es la falta de control organizado del proceso de acopio de residuos en Cartagena.
+Características (requerimientos no funcionales): cualidades que el sistema debe tener en cuanto a su comportamiento, por ejemplo, qué tan seguro, usable o eficiente debe ser.
+Requerimientos de software (requerimientos funcionales): las funciones específicas que el sistema ejecutará una vez hay acuerdo con el cliente, por ejemplo, registrar un material o calcular un puntaje.
+Fases de la Ingeniería de Requisitos
+El proceso de Ingeniería de Requisitos aplicado en este proyecto sigue cinco actividades de alto nivel, con la administración de requerimientos como eje transversal durante todo el proyecto:
+Obtención: recolectar información con el cliente y los stakeholders (entrevistas, encuestas y observación directa, según el punto 3.3).
+Análisis: refinar y examinar lo obtenido para eliminar ambigüedades y detectar errores u omisiones.
+Especificación: documentar formalmente los requerimientos acordados, definiendo funcionales y no funcionales.
+Verificación: confirmar que los requerimientos especificados sean completos, consistentes y cumplan las características de un buen requerimiento.
+Aceptación: validar formalmente con el cliente (docente y/o stakeholders) que lo documentado es lo que se construirá.
+B. Marco teórico del dominio
+Para entender correctamente los requerimientos de este sistema es necesario definir los conceptos propios del dominio:
+Material reciclable: residuo sólido susceptible de ser clasificado y reincorporado a un proceso productivo (papel, cartón, plástico, metal, vidrio, entre otros).
+Centro de acopio: espacio físico donde se reciben, clasifican, pesan y almacenan temporalmente los materiales antes de su aprovechamiento o venta.
+Clasificación: proceso de separar los residuos según su naturaleza o tipo de material.
+Pesaje: medición de la cantidad (en kilogramos) de material entregado por un reciclador en una jornada o entrega.
+Puntaje por kilo: valor asignado a cada kilogramo de material entregado, que varía según el tipo de material y sirve como mecanismo de incentivo.
+Ranking: clasificación comparativa de los recicladores según los puntos acumulados en un periodo determinado.
+Reporte ambiental: documento generado por el sistema que resume la cantidad y tipo de materiales acopiados, útil como evidencia de impacto ambiental y como insumo para metas institucionales como las del PGIRS de Cartagena.
+Reciclador de oficio: persona que se dedica a la recolección, clasificación y entrega de materiales reciclables como actividad económica.
+3.9 Modelo BPMN
+3.10 Requisitos funcionales y no funcionales
+Los requerimientos funcionales que se listan a continuación se derivan directamente de las actividades identificadas en el modelo de proceso BPMN construido para este proyecto (pool Reciclador / pool Centro de Acopio, lanes Operador y Administrador). El diagrama gráfico se anexará por separado.
+3.10.1 Requisitos funcionales
+RF-01
+Código
+RF-01 · SAR_1.0
+Nombre
+Registro de material
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Medio
+Prerrequisitos
+El reciclador debe haber entregado físicamente el material al operador de acopio.
+Flujo de entrada
+Entrega de material por parte del reciclador para iniciar el proceso de recepción.
+Descripción
+El sistema debe permitir al operador de acopio registrar la información correspondiente al material recibido, asociándolo con el reciclador y almacenando los datos necesarios para continuar con el proceso de pesaje y validación. Esta funcionalidad corresponde a la actividad (Registrar material) del lane Operador de acopio en el modelo BPMN.
+Flujo de salida
+Registro de material almacenado, disponible para la etapa de pesaje (RF-02).
+RF-02
+Código
+RF-02 · SAR_1.0
+Nombre
+Registro del peso del material
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Medio
+Prerrequisitos
+RF-01 (Registro de material) debe haberse completado y existir un registro de material disponible.
+Flujo de entrada
+Material preventivamente registrado y entregado al operador para su pesaje.
+Descripción
+El sistema debe permitir al operador de acopio ingresar y asociar el peso obtenido del material recibido con el registro correspondiente. La información registrada deberá quedar disponible para el proceso de validación y posterior asignación de puntos. Esta funcionalidad corresponde a la actividad (Pesar material) del modelo BPMN.
+Flujo de salida
+Peso confirmado y asociado al registro correspondiente. RF-03 en caso de material válido, o el evento de rechazo en caso contrario.
+RF-03
+Código
+RF-03 · SAR_1.0
+Nombre
+Validación del material recibido
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Medio
+Prerrequisitos
+RF-02 (Registro del peso) debe haberse completado y el registro debe contar con el peso correspondiente.
+Flujo de entrada
+Registro del material con su información y peso asociado.
+Descripción
+El sistema debe permitir registrar el resultado de la validación del material recibido, determinando si cumple con los criterios establecidos para continuar con el proceso. Cuando el material sea válido, el proceso podrá continuar hacia la confirmación del registro; cuando sea rechazado, el sistema deberá identificar el registro como rechazado y finalizar el flujo correspondiente. Esta funcionalidad se relaciona con la decisión ¿Material válido? del modelo BPMN.
+Flujo de salida
+Resultado de validación: material aprobado para continuar o material rechazado. RF-04.
+RF-04
+Código
+RF-04 · SAR_1.0
+Nombre
+Confirmación del registro del material
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Bajo
+Prerrequisitos
+RF-03 (Validación del material) debe haber determinado que el material es válido.
+Flujo de entrada
+Registro del material validado correctamente.
+Descripción
+El sistema debe permitir al operador de acopio confirmar el registro del material una vez finalizada satisfactoriamente la validación. La confirmación deberá dejar constancia de que la entrega fue aceptada y permitir continuar con el proceso de gestión de puntos. Esta funcionalidad corresponde a la actividad (Confirmar registro en el sistema) del modelo BPMN.
+Flujo de salida
+Registro confirmado y disponible para la asignación de puntos.
+RF-05
+Código
+RF-05 · SAR_1.0
+Nombre
+Asignación de puntos
+Clase
+Nuevo
+Prioridad
+Importante
+Complejidad
+Medio
+Prerrequisitos
+El material debe haber sido validado como válido y el registro debe haber sido confirmado mediante RF-03 y RF-04.
+Flujo de entrada
+Registro confirmado del material entregado por el reciclador y datos asociados a la entrega.
+Descripción
+el sistema debe permitir al administrador gestionar las asignaciones de puntos correspondientes a los materiales entregados y validados correctamente, asociando al reciclador que realizó la entrega y actualizó su acumulado.
+Flujo de salida
+Asignados al reciclador y acumulado actualizado para la gestión del ranking (RF-06) .
+RF-06
+Código
+RF-06 · SAR_1.0
+Nombre
+Gestión de rankings
+Clase
+Nuevo
+Prioridad
+Importante
+Complejidad
+Media
+Prerrequisitos
+Deben existir puntos registrados en el sistema.
+Flujo de entrada
+Puntos acumulados por los recicladores.
+Descripción
+El sistema debe permitir al administrador gestionar los rankings de los recicladores de acuerdo con los puntos acumulados.
+Flujo de salida
+rankings actualizados de los recicladores.
+3.10.1.1 Módulo Web (Administrador)
+RF-07
+Código
+RF-07 · SAR_2.0
+Nombre
+Autenticación y gestión de cuenta (Admin)
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Medio
+Prerrequisitos
+El administrador debe contar con una cuenta previamente creada, o iniciar el proceso de creación de cuenta desde el módulo de acceso.
+Flujo de entrada
+Acceso del administrador al módulo web mediante usuario o correo corporativo y contraseña, solicitud de creación de cuenta, o solicitud de recuperación de credenciales.
+Descripción
+El sistema debe permitir al administrador iniciar sesión utilizando su usuario o correo corporativo, contraseña y un código de administrador asignado automáticamente al crear la cuenta. Debe incluir una pestaña de creación de cuenta que solicite nombre, apellido, fecha de nacimiento, tipo y número de documento, correo electrónico personal y contraseña con indicador de seguridad, así como una función de “olvidé mis credenciales” mediante la digitación del correo institucional o ID de administrador y su PIN de respaldo.
+Flujo de salida
+Sesión de administrador autenticada, disponible para acceder al Dashboard del administrador (RF-08).
+RF-08
+Código
+RF-08 · SAR_2.0
+Nombre
+Dashboard del administrador
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Medio
+Prerrequisitos
+RF-07 (Autenticación y gestión de cuenta) debe haberse completado.
+Flujo de entrada
+Ingreso del administrador autenticado al módulo web.
+Descripción
+El sistema debe proveer una vista general que muestre métricas clave: volumen de kilogramos procesado, puntos acumulados, volumen mensual, top de recolectores y solicitudes pendientes, las cuales se podrán aceptar o rechazar directamente desde esta vista. Debe incluir una barra de búsqueda superior por operadores y métricas, y un filtro para visualizar la información de los últimos 30 días.
+Flujo de salida
+Selección de una métrica, operador o solicitud pendiente para continuar hacia los módulos de Analíticas (RF-10), Gestión avanzada de solicitudes (RF-11) o Gestión de usuarios (RF-13).
+RF-09
+Código
+RF-09 · SAR_2.0
+Nombre
+Perfil y configuración
+Clase
+Nuevo
+Prioridad
+Importante
+Complejidad
+Medio
+Prerrequisitos
+RF-07 (Autenticación y gestión de cuenta) debe haberse completado.
+Flujo de entrada
+Selección del perfil del administrador ubicado en la parte inferior izquierda del menú.
+Descripción
+El sistema debe permitir al administrador editar su información y lugar de acopio, cambiar la contraseña, activar autenticación en dos pasos, habilitar alertas sonoras de nuevas entregas, ajustar el tema de la interfaz, visualizar el registro de auditoría de sesión, y guardar o descartar los cambios realizados.
+Flujo de salida
+Configuración del administrador actualizada y guardada, o cambios descartados sin modificar el perfil.
+RF-10
+Código
+RF-10 · SAR_2.0
+Nombre
+Módulo de analíticas
+Clase
+Nuevo
+Prioridad
+Deseable
+Complejidad
+Alto
+Prerrequisitos
+Debe existir un histórico de recolección de al menos un periodo para generar la proyección; RF-07 debe haberse completado.
+Flujo de entrada
+Selección del módulo de Analíticas desde el Dashboard (RF-08).
+Descripción
+El sistema debe contar con una sección de analíticas impulsada por un modelo predictivo, que muestre la proyección y tendencia de recolección en un rango editable de los últimos 6 meses, categorizado por tipo de material. El administrador podrá calibrar el modelo predictivo y exportar el informe generado.
+Flujo de salida
+Informe de proyección exportado, o modelo predictivo recalibrado con nuevos parámetros.
+RF-11
+Código
+RF-11 · SAR_2.0
+Nombre
+Gestión avanzada de solicitudes
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Alto
+Prerrequisitos
+Deben existir solicitudes de pesaje enviadas desde la app del recolector (RF-18).
+Flujo de entrada
+Ingreso del administrador a la lista de solicitudes pendientes desde el Dashboard (RF-08).
+Descripción
+El sistema debe validar la información de cada solicitud mediante biometría, verificación fotográfica por IA y validación de pesaje en báscula óptica digital. La lista mostrará una fila de espera con filtros por “alta confianza” y “por revisar”, y permitirá buscar por ID o recolector. Cada solicitud mostrará nombre, código, fidelidad de la IA en el reconocimiento, hora, nivel del recolector, tipo de material, kilos y puntos; al detallarla se mostrará la fecha de ingreso, báscula utilizada, manifiesto, telemetría y la foto tomada desde la app del recolector. Si el administrador aprueba, el sistema enviará la confirmación de puntos a la app del recolector; si deniega, un modal pedirá el motivo y un comentario, notificando al recolector.
+Flujo de salida
+Solicitud aprobada, con la confirmación de puntos enviada al Panel principal del recolector (RF-17); o solicitud denegada, con el motivo notificado al recolector.
+RF-12
+Código
+RF-12 · SAR_2.0
+Nombre
+Historial general
+Clase
+Nuevo
+Prioridad
+Importante
+Complejidad
+Medio
+Prerrequisitos
+Deben existir registros previos de solicitudes y pesajes en el sistema.
+Flujo de entrada
+Selección del módulo de Historial general desde el Dashboard (RF-08).
+Descripción
+El sistema debe mostrar un histórico de solicitudes y un resumen del histórico de pesajes y recolección, permitiendo consultar a los usuarios involucrados y su información detallada mediante un modal.
+Flujo de salida
+Detalle de un usuario o registro histórico consultado mediante modal.
+RF-13
+Código
+RF-13 · SAR_2.0
+Nombre
+Gestión de usuarios
+Clase
+Nuevo
+Prioridad
+Importante
+Complejidad
+Medio
+Prerrequisitos
+Deben existir recolectores registrados en el sistema (RF-16).
+Flujo de entrada
+Selección del módulo de Gestión de usuarios desde el Dashboard (RF-08).
+Descripción
+El sistema debe mostrar métricas del total de recolectores, recolectores activos, material predominante y puntos acreditados. Debe listar a los recolectores, con un modal de información detallada por usuario, y proveer la opción de bloquearlos, vetarlos o suspenderlos.
+Flujo de salida
+Recolector bloqueado, suspendido o vetado; estado actualizado y reflejado en su cuenta de la app (RF-16).
+RF-14
+Código
+RF-14 · SAR_2.0
+Nombre
+Gestión de materiales
+Clase
+Nuevo
+Prioridad
+Importante
+Complejidad
+Medio
+Prerrequisitos
+RF-07 (Autenticación y gestión de cuenta) debe haberse completado.
+Flujo de entrada
+Selección del módulo de Materiales y reportes ambientales desde el Dashboard (RF-08).
+Descripción
+El sistema debe mostrar un informe detallado de los materiales recolectados. Debe permitir editar, eliminar y agregar nuevos materiales a la base de datos utilizada para entrenar continuamente el modelo de IA, y permitir exportar esta matriz de materiales.
+Flujo de salida
+Base de materiales actualizada, disponible para el reconocimiento de material en la Cámara de pesaje con IA (RF-18); matriz de materiales exportada.
+RF-15
+Código
+RF-15 · SAR_2.0
+Nombre
+Reportes ambientales
+Clase
+Nuevo
+Prioridad
+Deseable
+Complejidad
+Medio
+Prerrequisitos
+Deben existir registros de pesaje confirmados dentro del periodo y zona consultados.
+Flujo de entrada
+Selección de un periodo y zona desde el módulo de Materiales y reportes ambientales (RF-14).
+Descripción
+El sistema debe generar reportes filtrables por periodo y zona, exportables en formato CSV o PDF. Incluirá la generación de reporte de huella de carbono, manifiesto de trazabilidad y generación de certificados para los recolectores.
+Flujo de salida
+Reporte, manifiesto o certificado generado y exportado en CSV o PDF.
+3.10.1.2 Módulo App (Recolector)
+RF-16
+Código
+RF-16 · SAR_2.0
+Nombre
+Autenticación y registro (App)
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Medio
+Prerrequisitos
+Ninguno para el registro de una cuenta nueva; cuenta previamente creada para el inicio de sesión.
+Flujo de entrada
+Acceso del recolector a la app mediante el formulario de inicio de sesión o de registro.
+Descripción
+El sistema debe permitir al recolector iniciar sesión con usuario y contraseña. Si no tiene cuenta, podrá registrarse indicando nombre, apellido, fecha de nacimiento, correo electrónico, teléfono y contraseña, evaluada por un medidor de seguridad. Si olvida sus credenciales, podrá solicitar un código de verificación vía correo o número celular.
+Flujo de salida
+Sesión de recolector autenticada, disponible para acceder al Panel principal del recolector (RF-17).
+RF-17
+Código
+RF-17 · SAR_2.0
+Nombre
+Panel principal del recolector
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Bajo
+Prerrequisitos
+RF-16 (Autenticación y registro) debe haberse completado.
+Flujo de entrada
+Ingreso del recolector autenticado a la app.
+Descripción
+Una vez dentro de la app, el sistema debe mostrar el nombre del usuario, su nivel, puntos actuales, opciones de canje, impacto del día, actividad reciente y un botón para realizar un nuevo pesaje.
+Flujo de salida
+Selección del botón de nuevo pesaje (RF-18), de una opción de canje, o del historial y ranking (RF-19, RF-20).
+RF-18
+Código
+RF-18 · SAR_2.0
+Nombre
+Solicitud de nuevo pesaje con IA
+Clase
+Nuevo
+Prioridad
+Crítico
+Complejidad
+Alto
+Prerrequisitos
+RF-17 (Panel principal) debe haberse completado; el recolector debe haber realizado el pesaje físico del material previamente.
+Flujo de entrada
+Selección del botón de nuevo pesaje desde el Panel principal (RF-17).
+Descripción
+El sistema requerirá que el recolector tome una foto del material, habiéndose realizado el pesaje previamente. La inteligencia artificial analizará la fotografía para identificar el tipo de material y el código pericial, enviando la solicitud completa al administrador para su respectiva verificación o denegación.
+Flujo de salida
+Solicitud enviada al módulo de Gestión avanzada de solicitudes del administrador (RF-11) para su verificación o denegación.
+RF-19
+Código
+RF-19 · SAR_2.0
+Nombre
+Historial del recolector
+Clase
+Nuevo
+Prioridad
+Importante
+Complejidad
+Bajo
+Prerrequisitos
+RF-16 (Autenticación y registro) debe haberse completado.
+Flujo de entrada
+Selección del módulo de Historial desde el Panel principal (RF-17).
+Descripción
+El sistema debe permitir al recolector consultar sus puntos totales acumulados, los pesajes realizados y su impacto generado, utilizando filtros de búsqueda.
+Flujo de salida
+Consulta filtrada de puntos, pesajes e impacto generado por el recolector.
+RF-20
+Código
+RF-20 · SAR_2.0
+Nombre
+Consulta de ranking (App)
+Clase
+Nuevo
+Prioridad
+Importante
+Complejidad
+Medio
+Prerrequisitos
+Deben existir puntos acumulados y un ranking calculado por el sistema (RF-06).
+Flujo de entrada
+Selección del módulo de Ranking desde el Panel principal (RF-17).
+Descripción
+El sistema debe permitir al recolector visualizar el ranking global, mostrando a los líderes actuales (“top actuales”) y los demás participantes. La información será filtrable por periodo y zona, mostrará los premios disponibles, permitirá descargar el reporte y contará con un modal para detallar la información.
+Flujo de salida
+Detalle de un participante consultado mediante modal, o reporte de ranking descargado.
+3.10.2 Requisitos no funcionales
+Código
+Característica
+Descripción
+RNF-01
+Usabilidad
+El sistema debe permitir realizar el registro del material mediante una interfaz clara e intuitiva para el usuario.
+RNF-02
+Desempeño
+El sistema debe responder de manera eficiente ante las operaciones del registro consulta y actualización de información.
+RNF-03
+Compatibilidad
+El sistema debe funcionar correctamente en los dispositivos y navegadores definidos para su actualización.
+RNF-04
+Seguridad
+el sistema debe proteger la información y restringir el acceso a las funcionalidades de acuerdo con el rol de cada usuario.
+RNF-05
+Escalabilidad
+El sistema debe permitir incorporar nuevos usuarios, registros y funcionalidades sin afectar significativamente su funcionamiento.
+RNF-06
+Portabilidad
+El sistema debe poder ser utilizado en diferentes entornos compatibles sin requerir modificaciones importantes.
+3.11 Actualización de pantallas para la matriz de trazabilidad (mockups)
+Con la incorporación de los módulos web de administración y de la aplicación móvil del recolector (RF-07 a RF-20), se amplía la matriz de trazabilidad de pantallas definida en el punto 3.12, agregando los siguientes códigos de pantalla.
+Nuevas pantallas – Módulo Web (Administrador)
+Código
+Pantalla / Módulo
+Descripción / Funcionalidades clave
+P-00
+Módulo de Acceso
+Login (correo/contraseña/código admin), creación de cuenta y recuperación de credenciales (correo/ID y PIN).
+P-05
+Dashboard
+Vista resumen con métricas superiores, buscador por operadores/métricas y filtro de los últimos 30 días.
+P-06
+Analíticas
+Interfaz con calibración del modelo predictivo de 6 meses, tendencias y botón de exportación de informes.
+P-07
+Lista de Solicitudes
+Tabla con fila de espera, datos de biometría, telemetría y verificación de IA.
+P-07.1
+Modal de Denegación
+Estado que solicita motivo y comentario obligatorio tras rechazar un material.
+P-08
+Gestión de Usuarios e Historial
+Listado general con botones de acción (Bloquear/Suspender/Vetar) y modales de información detallada por usuario.
+P-09
+Materiales y Reportes Ambientales
+Interfaz de CRUD de materiales para IA y zona de descarga (CSV/PDF) para manifiestos y huella de carbono.
+P-10
+Perfil
+Vista de configuración de usuario con switches para 2FA, alertas sonoras, selector de tema y registro de auditoría.
+Nuevas pantallas – Módulo App (Recolector)
+Código
+Pantalla / Módulo
+Descripción / Funcionalidades clave
+P-APP-01
+Acceso y Registro
+Login, formulario de registro (con barra medidora de seguridad de contraseña) y recuperación por SMS/Correo.
+P-APP-02
+Panel Principal (Home)
+Vista central con tarjeta de nivel, puntos, impacto diario y accesos directos (canje y nuevo pesaje).
+P-APP-03
+Cámara de Pesaje (IA)
+Interfaz nativa de cámara para toma fotográfica del material y pantalla de carga/análisis del código pericial.
+P-APP-04
+Historial y Ranking
+Listado de pesajes históricos del recolector y tabla de posiciones (ranking) filtrable por zona y periodo.

@@ -1,0 +1,392 @@
+<!DOCTYPE html><html class="dark" lang="es"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;min-height:100vh;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-dim": "#081613", "on-primary-fixed-variant": "#035143", "on-primary-container": "#a8e9d6", "tertiary-fixed": "#6cfad1", "primary": "#93d3c1", "inverse-on-surface": "#253330", "surface-bright": "#2e3c38", "on-tertiary-fixed": "#002118", "outline-variant": "#3f4945", "surface-tint": "#93d3c1", "secondary": "#a3d0c3", "on-tertiary-fixed-variant": "#00513f", "on-surface-variant": "#bfc9c4", "surface-container": "#14221f", "error-container": "#93000a", "surface-container-lowest": "#04110e", "secondary-fixed-dim": "#a3d0c3", "on-primary": "#00382d", "on-secondary-container": "#95c1b5", "surface-container-highest": "#293834", "inverse-primary": "#28695a", "outline": "#89938f", "surface-variant": "#293834", "on-tertiary": "#00382b", "on-secondary-fixed-variant": "#234e45", "tertiary-fixed-dim": "#4bddb5", "secondary-container": "#265047", "on-primary-fixed": "#002019", "surface-container-low": "#101e1b", "on-background": "#d6e6e0", "secondary-fixed": "#beecdf", "on-error-container": "#ffdad6", "on-secondary-fixed": "#00201a", "on-secondary": "#07372e", "tertiary-container": "#006e57", "background": "#081613", "on-tertiary-container": "#65f4ca", "on-error": "#690005", "primary-fixed-dim": "#93d3c1", "primary-container": "#2a6b5c", "inverse-surface": "#d6e6e0", "surface": "#081613", "tertiary": "#4bddb5", "on-surface": "#d6e6e0", "surface-container-high": "#1f2d29", "error": "#ffb4ab", "primary-fixed": "#aef0dc" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "margin": "2.5rem", "space-md": "1rem", "space-xs": "0.25rem", "margin-sm": "1.25rem", "gutter": "1.5rem", "space-xl": "2.5rem", "gutter-sm": "1rem", "space-sm": "0.5rem" }, fontFamily: { "headline-lg": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "display": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-md": ["Inter"], "display-mobile": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "600" }], "title-md": ["16px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "600" }], "headline-lg-mobile": ["28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.05em", fontWeight: "600" }], "display": ["56px", { lineHeight: "64px", letterSpacing: "-0.03em", fontWeight: "700" }], "body-md": ["14px", { lineHeight: "22px", letterSpacing: "0em", fontWeight: "400" }], "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-md": ["13px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "500" }], "display-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-sm": ["12px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "400" }], "headline-sm": ["20px", { lineHeight: "28px", letterSpacing: "-0.005em", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "400" }] } } } };</script></head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen relative antialiased selection:bg-tertiary-container selection:text-on-tertiary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-low/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)]"><div class="h-16 px-gutter-sm flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZb01FVurtEEI9khUFw6r0XwxwGv1v019afwq1Fl6xLk7J9sdYLTvk7doUzwjKqXQkEmme9bgtm876-r5POOmb1qwD2X10x-8g4Lmwfu4liSaI01ys0NeL6ekky74-OsdRGo81O_ANHKx4yR3io869M0azwx_GzZEbeUKRfhvycyu6JqZdUyYlR4TmPi_5-z0Ve8V8hE5UG08sNR33vaUxxGazenr22mRVd1NA3_a2Vjvzj-5EP4rrBe9JUpp1msdGhg" alt="SAR Logo" class="w-8 h-8 rounded-full object-cover shrink-0"><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight truncate">SAR</span><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-semibold tracking-wider uppercase">Mobile</span></div><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Historial</span></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Notificaciones" class="w-11 h-11 min-w-[44px] min-h-[44px] relative flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#4bddb5]"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full relative">
+<!-- Ambient Botanical Background Overlay (Subtle emerald leaf luminance) -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden -z-10 opacity-25">
+<div class="w-full h-full bg-cover bg-center" data-alt="Dark botanical liquid foliage pattern with emerald and mint translucent leaves submerged in deep black-green pine water, ethereal ambient refractions and specular glass lights" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBMxrR5ObjYcGsZMBV2jhNy8vvf_iIHQxoUL8aC8pjSTI16Pp1SNRo8E5EZiOg1SYxOS92jET1VWN2NcY2evrzmKUJqQHit1ryVRd5Kabncap1_cPHNJjN_LZVGJe5DK8HWSP0AqdMC-2RxpnWboJEPvnV3YemmZf0YMT8FoiyZIrfi2HXjT4hNYShPLVnneBoH_lhfG4WWn0D1C7TLtYVNpdJvt3qk68CkMe70A_nExJksmE04KpS8')"></div>
+</div>
+<div class="px-gutter-sm flex flex-col gap-space-md pt-space-sm pb-space-lg">
+<!-- Summary Metrics Liquid Glass Bar -->
+<section class="relative overflow-hidden rounded-xl bg-surface-container/60 backdrop-blur-2xl shadow-xl p-space-md">
+<!-- Glow ambient orb -->
+<div class="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-tertiary/15 blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between gap-space-xs">
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">scale</span>
+            Total Acopiado
+          </span>
+<span class="font-headline-md text-headline-md text-on-surface tracking-tight mt-0.5 truncate">
+            145 <span class="font-title-md text-title-md text-primary font-normal">kg</span>
+</span>
+</div>
+<div class="w-[1px] h-10 bg-surface-variant/80 shrink-0"></div>
+<div class="flex flex-col min-w-0 flex-1 pl-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">stars</span>
+            Puntos Totales
+          </span>
+<span class="font-headline-md text-headline-md text-tertiary tracking-tight mt-0.5 truncate">
+            12,500 <span class="font-label-md text-label-md text-secondary font-normal">pts</span>
+</span>
+</div>
+<div class="w-[1px] h-10 bg-surface-variant/80 shrink-0"></div>
+<div class="flex flex-col min-w-0 shrink-0 text-right pl-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Pesajes</span>
+<span class="font-headline-md text-headline-md text-on-surface mt-0.5">18</span>
+</div>
+</div>
+<!-- Quick progress/milestone indicator -->
+<div class="mt-space-md pt-space-xs flex flex-col gap-1.5">
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-[0_0_6px_#4bddb5]"></span>
+            Meta Mensual: Nivel Eco-Master
+          </span>
+<span class="text-on-surface font-semibold">72%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary-container via-tertiary to-primary rounded-full transition-all duration-700" style="width: 72%;"></div>
+</div>
+</div>
+</section>
+<!-- Filter Chips Carousel (Material & Date Range) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Filtrar Actividad</span>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-tertiary active:scale-95 transition-transform" id="btn-export" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+          Exportar
+        </button>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-gutter-sm px-gutter-sm" id="filter-container">
+<!-- Active Chip -->
+<button class="filter-pill shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-tertiary-container text-on-tertiary-container font-label-md text-label-md shadow-sm transition-all" data-filter="all" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-[0_0_8px_#4bddb5]"></span>
+          Todos
+        </button>
+<button class="filter-pill shrink-0 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-filter="month" type="button">
+          Este Mes
+        </button>
+<button class="filter-pill shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-filter="plastic" type="button">
+<span class="material-symbols-outlined text-[15px]">water_bottle</span>
+          Plástico
+        </button>
+<button class="filter-pill shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-filter="cardboard" type="button">
+<span class="material-symbols-outlined text-[15px]">inventory_2</span>
+          Cartón
+        </button>
+<button class="filter-pill shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-filter="metal" type="button">
+<span class="material-symbols-outlined text-[15px]">hardware</span>
+          Metales
+        </button>
+</div>
+</div>
+<!-- Receipts & Transactions List -->
+<div class="flex flex-col gap-space-sm" id="tickets-list">
+<!-- Card 1: Plástico PET (Aprobado) -->
+<article class="ticket-card relative overflow-hidden rounded-xl bg-surface-container-low/75 backdrop-blur-xl shadow-lg p-space-md transition-all active:scale-[0.99] flex flex-col gap-space-sm" data-category="plastic">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-highest/90 flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-primary text-[24px]">water_bottle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface font-semibold truncate">Plástico (PET)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">24/09 • 10:30 AM</span>
+</div>
+</div>
+<!-- Status Pill Approved -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold shrink-0">
+<span class="material-symbols-outlined text-[13px] text-tertiary">check_circle</span>
+            Aprobado
+          </div>
+</div>
+<!-- Metrics & Points Bar Inside Ticket -->
+<div class="flex items-center justify-between pt-2 bg-surface-container-lowest/50 rounded-lg p-2.5">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">12.0</span>
+<span class="font-label-md text-label-md text-on-surface-variant">kg</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary font-title-md text-title-md font-bold">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+            540 pts
+          </div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pt-1">
+<span class="flex items-center gap-1 text-secondary truncate">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Certificado #SAR-98421
+          </span>
+<button class="flex items-center gap-1 text-primary hover:text-tertiary active:scale-95 transition-all" onclick="openTicketModal('SAR-98421', 'Plástico (PET)', '12.0 kg', '+540 pts', '24/09/2024 - 10:30 AM', 'Aprobado')" type="button">
+<span class="">Ver Ticket</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Card 2: Cartón Corrugado (Aprobado) -->
+<article class="ticket-card relative overflow-hidden rounded-xl bg-surface-container-low/75 backdrop-blur-xl shadow-lg p-space-md transition-all active:scale-[0.99] flex flex-col gap-space-sm" data-category="cardboard">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-highest/90 flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-secondary text-[24px]">inventory_2</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface font-semibold truncate">Cartón Corrugado</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">24/09 • 09:15 AM</span>
+</div>
+</div>
+<!-- Status Pill Approved -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold shrink-0">
+<span class="material-symbols-outlined text-[13px] text-tertiary">check_circle</span>
+            Aprobado
+          </div>
+</div>
+<div class="flex items-center justify-between pt-2 bg-surface-container-lowest/50 rounded-lg p-2.5">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">20.0</span>
+<span class="font-label-md text-label-md text-on-surface-variant">kg</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary font-title-md text-title-md font-bold">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+            400 pts
+          </div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pt-1">
+<span class="flex items-center gap-1 text-secondary truncate">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Certificado #SAR-98394
+          </span>
+<button class="flex items-center gap-1 text-primary hover:text-tertiary active:scale-95 transition-all" onclick="openTicketModal('SAR-98394', 'Cartón Corrugado', '20.0 kg', '+400 pts', '24/09/2024 - 09:15 AM', 'Aprobado')" type="button">
+<span class="">Ver Ticket</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Card 3: Metales (Cobre) (En Revisión) -->
+<article class="ticket-card relative overflow-hidden rounded-xl bg-surface-container-low/75 backdrop-blur-xl shadow-lg p-space-md transition-all active:scale-[0.99] flex flex-col gap-space-sm" data-category="metal">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-highest/90 flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-primary-fixed text-[24px]">hardware</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface font-semibold truncate">Metales (Cobre)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">23/09 • 04:45 PM</span>
+</div>
+</div>
+<!-- Status Pill En Revision (Amber/Warm Container) -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-highest text-secondary-fixed font-label-sm text-label-sm font-semibold shrink-0">
+<span class="material-symbols-outlined text-[13px] text-tertiary-fixed-dim">hourglass_empty</span>
+            En Revisión
+          </div>
+</div>
+<div class="flex items-center justify-between pt-2 bg-surface-container-lowest/50 rounded-lg p-2.5">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">5.0</span>
+<span class="font-label-md text-label-md text-on-surface-variant">kg</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md italic">
+            Inspección óptica en curso...
+          </div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pt-1">
+<span class="flex items-center gap-1 text-on-surface-variant truncate">
+<span class="material-symbols-outlined text-[14px]">pending</span>
+            Ticket Provisorio #SAR-98201
+          </span>
+<button class="flex items-center gap-1 text-primary hover:text-tertiary active:scale-95 transition-all" onclick="openTicketModal('SAR-98201', 'Metales (Cobre)', '5.0 kg', 'Pendiente de cálculo', '23/09/2024 - 04:45 PM', 'En Revisión')" type="button">
+<span class="">Ver Detalle</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Card 4: Plástico PET (Aprobado) -->
+<article class="ticket-card relative overflow-hidden rounded-xl bg-surface-container-low/75 backdrop-blur-xl shadow-lg p-space-md transition-all active:scale-[0.99] flex flex-col gap-space-sm" data-category="plastic">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-highest/90 flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-primary text-[24px]">water_bottle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface font-semibold truncate">Plástico (PET)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">23/09 • 02:20 PM</span>
+</div>
+</div>
+<!-- Status Pill Approved -->
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold shrink-0">
+<span class="material-symbols-outlined text-[13px] text-tertiary">check_circle</span>
+            Aprobado
+          </div>
+</div>
+<div class="flex items-center justify-between pt-2 bg-surface-container-lowest/50 rounded-lg p-2.5">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">8.0</span>
+<span class="font-label-md text-label-md text-on-surface-variant">kg</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary font-title-md text-title-md font-bold">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+            360 pts
+          </div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pt-1">
+<span class="flex items-center gap-1 text-secondary truncate">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Certificado #SAR-98150
+          </span>
+<button class="flex items-center gap-1 text-primary hover:text-tertiary active:scale-95 transition-all" onclick="openTicketModal('SAR-98150', 'Plástico (PET)', '8.0 kg', '+360 pts', '23/09/2024 - 02:20 PM', 'Aprobado')" type="button">
+<span class="">Ver Ticket</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</article>
+</div>
+<!-- Motivational Botanical Banner -->
+<div class="rounded-xl p-space-md bg-surface-container flex items-center gap-space-md relative overflow-hidden">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/60 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-[26px]">eco</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface font-semibold">Impacto Positivo Certificado</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Has evitado la emisión de aprox. 48.2 kg de CO₂e este mes.</span>
+</div>
+</div>
+</div>
+<!-- Certified Digital Ticket Modal (Hidden by Default) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-gutter-sm bg-surface-container-lowest/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300" id="voucher-modal">
+<div class="relative w-full max-w-sm rounded-2xl bg-surface-container-high/95 backdrop-blur-2xl shadow-2xl p-space-lg flex flex-col gap-space-md transition-transform duration-300 scale-95" id="voucher-content">
+<!-- Top Ticket Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[16px]">receipt</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Comprobante SAR</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="closeTicketModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Ticket Body Details -->
+<div class="rounded-xl bg-surface-container-lowest/70 p-space-md flex flex-col gap-space-sm font-body-sm text-body-sm">
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Código Único:</span>
+<span class="text-on-surface font-semibold font-mono" id="modal-code">SAR-98421</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Material:</span>
+<span class="text-on-surface font-semibold" id="modal-material">Plástico (PET)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Peso Registrado:</span>
+<span class="text-primary font-bold" id="modal-weight">12.0 kg</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Recompensa:</span>
+<span class="text-tertiary font-bold" id="modal-points">+540 pts</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Fecha y Hora:</span>
+<span class="text-on-surface text-right" id="modal-date">24/09/2024 - 10:30 AM</span>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="text-on-surface-variant">Estado Balanza:</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-semibold" id="modal-status">Aprobado</span>
+</div>
+</div>
+<!-- Digital QR / Cryptographic Sign Placeholder -->
+<div class="flex flex-col items-center justify-center py-2 gap-2 text-center">
+<div class="w-24 h-24 rounded-lg bg-surface-container-highest flex items-center justify-center p-2 shadow-inner">
+<span class="material-symbols-outlined text-primary text-[64px]">qr_code_2</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">Firma Digital Criptográfica SAR Verificada</span>
+</div>
+<!-- Actions -->
+<div class="flex gap-2">
+<button class="flex-1 py-2.5 px-4 rounded-full bg-tertiary text-on-tertiary font-label-md text-label-md font-bold flex items-center justify-center gap-1.5 shadow-[0_0_16px_rgba(75,221,181,0.35)] active:scale-95 transition-all" onclick="downloadVoucher()" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+          Descargar PDF
+        </button>
+<button class="py-2.5 px-4 rounded-full bg-surface-container-highest text-on-surface-variant font-label-md text-label-md font-medium active:scale-95 transition-all" onclick="closeTicketModal()" type="button">
+          Cerrar
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Filter Tabs Logic
+  const filterButtons = document.querySelectorAll('.filter-pill');
+  const cards = document.querySelectorAll('.ticket-card');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Toggle button styles
+      filterButtons.forEach(b => {
+        b.classList.remove('bg-tertiary-container', 'text-on-tertiary-container', 'shadow-sm');
+        b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+      });
+      btn.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+      btn.classList.add('bg-tertiary-container', 'text-on-tertiary-container', 'shadow-sm');
+
+      const filter = btn.getAttribute('data-filter');
+      cards.forEach(card => {
+        if (filter === 'all' || filter === 'month') {
+          card.style.display = 'flex';
+        } else if (card.getAttribute('data-category') === filter) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Modal Voucher Functions
+  const modal = document.getElementById('voucher-modal');
+  const modalBox = document.getElementById('voucher-content');
+
+  function openTicketModal(code, material, weight, points, date, status) {
+    document.getElementById('modal-code').textContent = code;
+    document.getElementById('modal-material').textContent = material;
+    document.getElementById('modal-weight').textContent = weight;
+    document.getElementById('modal-points').textContent = points;
+    document.getElementById('modal-date').textContent = date;
+    document.getElementById('modal-status').textContent = status;
+
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modalBox.classList.remove('scale-95');
+    modalBox.classList.add('scale-100');
+  }
+
+  function closeTicketModal() {
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modalBox.classList.remove('scale-100');
+    modalBox.classList.add('scale-95');
+  }
+
+  function downloadVoucher() {
+    const btn = event.currentTarget;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span> Guardando...`;
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">check</span> ¡Descargado!`;
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        closeTicketModal();
+      }, 1200);
+    }, 900);
+  }
+
+  // Export Action Hint
+  const exportBtn = document.getElementById('btn-export');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+      exportBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-tertiary">check</span> CSV Listo`;
+      setTimeout(() => {
+        exportBtn.innerHTML = `<span class="material-symbols-outlined text-[16px]">file_download</span> Exportar`;
+      }, 2000);
+    });
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-low/85 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.4)]" data-active-classes="text-tertiary font-semibold"><div class="flex items-center justify-around h-16 px-gutter-sm max-w-md mx-auto"><a class="flex flex-col items-center justify-center w-16 h-12 min-w-[44px] min-h-[44px] gap-0.5 text-on-surface-variant transition-colors" data-path="inicio" href="#"><span class="material-symbols-outlined text-[22px]">home</span><span class="font-label-sm text-label-sm">Inicio</span></a><a aria-current="page" class="flex flex-col items-center justify-center w-16 h-12 min-w-[44px] min-h-[44px] gap-0.5 transition-colors text-tertiary font-semibold" data-path="historial" href="#"><span class="material-symbols-outlined text-[22px]">receipt_long</span><span class="font-label-sm text-label-sm">Historial</span></a><a class="flex flex-col items-center justify-center w-16 h-12 min-w-[44px] min-h-[44px] gap-0.5 text-on-surface-variant transition-colors" data-path="ranking" href="#"><span class="material-symbols-outlined text-[22px]">trophy</span><span class="font-label-sm text-label-sm">Ranking</span></a><a class="flex flex-col items-center justify-center w-16 h-12 min-w-[44px] min-h-[44px] gap-0.5 text-on-surface-variant transition-colors" data-path="perfil" href="#"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm">Perfil</span></a></div></nav>
+
+<script src="/vista/bind-movil.js"></script></body></html>

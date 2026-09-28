@@ -1,0 +1,199 @@
+<!DOCTYPE html><html class="dark" lang="es" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;min-height:100vh;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-dim": "#081613", "on-primary-fixed-variant": "#035143", "on-primary-container": "#a8e9d6", "tertiary-fixed": "#6cfad1", "primary": "#93d3c1", "inverse-on-surface": "#253330", "surface-bright": "#2e3c38", "on-tertiary-fixed": "#002118", "outline-variant": "#3f4945", "surface-tint": "#93d3c1", "secondary": "#a3d0c3", "on-tertiary-fixed-variant": "#00513f", "on-surface-variant": "#bfc9c4", "surface-container": "#14221f", "error-container": "#93000a", "surface-container-lowest": "#04110e", "secondary-fixed-dim": "#a3d0c3", "on-primary": "#00382d", "on-secondary-container": "#95c1b5", "surface-container-highest": "#293834", "inverse-primary": "#28695a", "outline": "#89938f", "surface-variant": "#293834", "on-tertiary": "#00382b", "on-secondary-fixed-variant": "#234e45", "tertiary-fixed-dim": "#4bddb5", "secondary-container": "#265047", "on-primary-fixed": "#002019", "surface-container-low": "#101e1b", "on-background": "#d6e6e0", "secondary-fixed": "#beecdf", "on-error-container": "#ffdad6", "on-secondary-fixed": "#00201a", "on-secondary": "#07372e", "tertiary-container": "#006e57", "background": "#081613", "on-tertiary-container": "#65f4ca", "on-error": "#690005", "primary-fixed-dim": "#93d3c1", "primary-container": "#2a6b5c", "inverse-surface": "#d6e6e0", "surface": "#081613", "tertiary": "#4bddb5", "on-surface": "#d6e6e0", "surface-container-high": "#1f2d29", "error": "#ffb4ab", "primary-fixed": "#aef0dc" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "margin": "2.5rem", "space-md": "1rem", "space-xs": "0.25rem", "margin-sm": "1.25rem", "gutter": "1.5rem", "space-xl": "2.5rem", "gutter-sm": "1rem", "space-sm": "0.5rem" }, fontFamily: { "headline-lg": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "display": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-md": ["Inter"], "display-mobile": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "600" }], "title-md": ["16px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "600" }], "headline-lg-mobile": ["28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.05em", fontWeight: "600" }], "display": ["56px", { lineHeight: "64px", letterSpacing: "-0.03em", fontWeight: "700" }], "body-md": ["14px", { lineHeight: "22px", letterSpacing: "0em", fontWeight: "400" }], "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-md": ["13px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "500" }], "display-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-sm": ["12px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "400" }], "headline-sm": ["20px", { lineHeight: "28px", letterSpacing: "-0.005em", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen relative antialiased selection:bg-tertiary-container selection:text-on-tertiary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-low/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)]"><div class="h-16 px-gutter-sm flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0"><button aria-label="Volver" class="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-on-surface hover:text-primary active:scale-95 transition-all" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[22px]">arrow_back_ios_new</span></button><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDgJyDUs5ELemBYZmYGYnNf_abQ0SJulin1YDURtxF9XAtYjgN1xqJ1B_HsBhKMIBFX1frUKVswSnBzdkBr5_US_SsjtVQplsQwfoCSr80a9DBTK7Wr40GkzLww2jxkerlPDC4xVWWGzmyOIYAGADkjllhOdO7N-76vT1k8VB_ZE7Bd57HODo3PNM7x5hNdxK6ZlJhMd_UdVt7akYZ0xB-BlCTkStwV9zp0Lvu30CzvEIapfviwCW5wVtibdkQIKIR9w" alt="SAR Logo" class="w-7 h-7 rounded-full object-cover shrink-0"><h1 class="font-title-md text-title-md text-on-surface truncate tracking-tight">Nuevo Registro De Acopio</h1></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full relative min-w-0 px-gutter-sm pb-space-xl space-y-space-md">
+<!-- Subtle ambient botanical backdrop overlay -->
+<div class="pointer-events-none fixed inset-0 z-0 opacity-15 mix-blend-screen bg-cover bg-center" data-alt="Dark botanical pattern with translucent glowing emerald pine leaves, organic veining foliage on deep blackish green background, high-end optical glass refraction ambience" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0Apr4PSXqiUQm0YW5YifO29tz1xZDe39mEVHN4BYERf8UpAFIBkgpBHEkvPasa1vzOwA1zxSrF2A0cfc6cEU4ywljlAg-bkKtYafA5f9ftMWRFspeZLomKIQU-SrcuP-MM9SnsLnlX58r5VdF2EPKbHrCV1X12CfH4ZMihnv2wktFWA5hvSW1P89YjSfq4f1e8czL-laTTuMrSe3-yeuIDJqtJu3TWcvvxqhXnzUOmn8DoZC1STmq')"></div>
+<!-- Status Chip Bar -->
+<div class="relative z-10 w-full flex items-center justify-between pt-space-xs">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-secondary-container/40 backdrop-blur-xl">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse shadow-[0_0_8px_currentColor]"></span>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider font-semibold">Lectura QR Exitosa • Tolva 03</span>
+</div>
+<div class="inline-flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-primary">verified_user</span>
+<span class="">TLS 1.3 Cifrado</span>
+</div>
+</div>
+<!-- Main Hero Telemetry HUD Card -->
+<div class="relative z-10 w-full rounded-xl bg-surface-container/70 backdrop-blur-2xl p-space-md shadow-xl overflow-hidden">
+<!-- Subtle specular sheen top line -->
+<div class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+<!-- Metadata Row -->
+<div class="flex items-start justify-between gap-space-xs mb-space-sm">
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Folio Manifiesto</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm text-on-surface-variant">Calib. A-24</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">#TK-8894-QR</p>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Captura Automática</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Hoy, 10:35 AM</span>
+</div>
+</div>
+<!-- Location & Scale Node -->
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low/70 mb-space-md">
+<div class="w-8 h-8 rounded-lg bg-primary-container/40 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[18px]">precision_manufacturing</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Estación Central de Acopio</p>
+<p class="font-label-md text-label-md text-on-surface truncate font-semibold">Tolva 03 • Sensor Dinámico A-24</p>
+</div>
+<span class="w-2 h-2 rounded-full bg-tertiary shrink-0"></span>
+</div>
+<!-- Weight Display Centerpiece -->
+<div class="relative rounded-xl bg-surface-container-lowest/80 p-space-md text-center shadow-inner overflow-hidden mb-space-md">
+
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest block mb-1">Masa Neta Certificada</span>
+<div class="flex items-baseline justify-center gap-1.5 my-1">
+<span class="font-display-mobile text-display-mobile tracking-tight text-on-surface font-bold">15.00</span>
+<span class="font-headline-md text-headline-md text-primary font-semibold">kg</span>
+</div>
+<!-- Live Signal / Sparkline indicator -->
+<div class="flex items-center justify-center gap-2 text-tertiary font-label-sm text-label-sm">
+<svg class="w-20 h-4" fill="none" viewBox="0 0 80 16">
+<path d="M0 8h24l4-6 6 12 5-9 4 5 7-2h30" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-on-surface-variant">Estabilización 100%</span>
+</div>
+</div>
+<!-- Detected Material & Points Grid -->
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- Material Card -->
+<div class="rounded-lg bg-surface-container-high/60 p-2.5 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Material</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">PET Cristal</p>
+<span class="font-body-sm text-body-sm text-primary truncate">Grado Reciclaje A+</span>
+</div>
+<!-- Points Equivalent Card -->
+<div class="rounded-lg bg-surface-container-high/60 p-2.5 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Abono Estimado</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary">toll</span>
+</div>
+<p class="font-label-md text-label-md text-tertiary font-bold tracking-tight">+675 PTS</p>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">≈ $6.75 USD Bono</span>
+</div>
+</div>
+</div>
+<!-- Evidence & Telemetry Capture -->
+<div class="relative z-10 w-full rounded-xl bg-surface-container/60 backdrop-blur-xl p-space-md shadow-lg space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">photo_camera</span>
+<h2 class="font-title-md text-title-md text-on-surface">Evidencia Capturada</h2>
+</div>
+<div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-container/40 text-on-primary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px]">check_circle</span>
+        OCR Verificado 98.4%
+      </div>
+</div>
+<!-- Image Snapshot Bento Row -->
+<div class="grid grid-cols-3 gap-space-xs pt-1">
+<!-- Auto Snapshot from scale cam -->
+<div class="col-span-2 relative rounded-lg overflow-hidden h-28 bg-surface-container-lowest shadow-md">
+<img class="w-full h-full object-cover" data-alt="Overhead forensic industrial camera view of transparent clear PET bottles neatly loaded onto a high-precision digital scale tray in a recycling facility with green laser registration guidelines and clean emerald lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5llM2_c-_8CcYvLYolt37oT3-iQdawYigXMFa2F8kpGAdXDeesNukawMhCJDJlMihHhqdnoEpXeRSFvUD8NdguRKH2BrBxVPpb2mY2TXjP7x1roe5Q3TMg4TMJR9PxmFSsiOT7RFfEcxZv1vbzsfYdSZr_2eXM30uP5B-vwxvUmQn4E0SU3YpAa79H7NbQjggdOO-So-tK-673QGAnb98AwkN0sLAXad6CRDS15thr4KBxoaHgXDS">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim/90 via-transparent to-transparent flex items-end p-2">
+<span class="font-label-sm text-label-sm text-on-surface font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Cámara Tolva 03
+          </span>
+</div>
+</div>
+<!-- Add Extra Photo Slot -->
+<button aria-label="Añadir foto de respaldo" class="col-span-1 h-28 rounded-lg bg-surface-container-high/60 active:bg-surface-container-highest flex flex-col items-center justify-center p-2 text-center transition-all group" type="button">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary group-hover:scale-105 transition-transform mb-1">
+<span class="material-symbols-outlined text-[18px]">add_a_photo</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Foto Extra (Opcional)</span>
+</button>
+</div>
+<!-- Note Input Field -->
+<div class="pt-1">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1.5" for="peritaje-notes">
+        Nota de Verificación Pericial
+      </label>
+<div class="relative rounded-lg bg-surface-container-lowest/80 p-2 shadow-inner focus-within:ring-1 focus-within:ring-primary">
+<textarea class="w-full bg-transparent text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none resize-none" id="peritaje-notes" placeholder="Observaciones del lote, pureza del material o sellos adicionales..." rows="2"></textarea>
+</div>
+</div>
+</div>
+<!-- Dispatch Destination Card -->
+<div class="relative z-10 w-full rounded-xl bg-surface-container/60 backdrop-blur-xl p-space-md shadow-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Protocolo de Despacho</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Paso 3 de 3</span>
+</div>
+<!-- Auditor Active Badge -->
+<div class="flex items-center gap-space-sm p-space-xs rounded-lg bg-surface-container-high/50">
+<div class="relative shrink-0">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-sm text-headline-sm font-bold">
+          JD
+        </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-tertiary ring-2 ring-surface-container-high animate-pulse"></span>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<p class="font-title-md text-title-md text-on-surface font-semibold truncate">Juan Delgado</p>
+<span class="px-1.5 py-0.2 rounded bg-tertiary-container/30 text-on-tertiary-container font-label-sm text-label-sm">En Línea</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Auditor Pericial de Turno • Consola Central</p>
+</div>
+</div>
+</div>
+<!-- Primary Bottom Actions -->
+<div class="relative z-10 w-full pt-space-xs space-y-space-sm">
+<!-- Main Big Dispatch Button -->
+<button class="w-full py-3.5 px-space-md rounded-xl bg-primary text-on-primary font-headline-sm text-headline-sm font-bold tracking-tight shadow-[0_4px_24px_rgba(78,224,184,0.35)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group" id="send-weight-btn" type="button">
+<span class="material-symbols-outlined text-[22px] transition-transform group-hover:translate-x-0.5">send</span>
+<span class="">Enviar Solicitud al Administrador</span>
+</button>
+<!-- Secondary Calibration / Rescan Button -->
+<button class="w-full py-2.5 px-space-md rounded-xl bg-surface-container-high/60 active:bg-surface-container-highest text-secondary font-label-md text-label-md font-medium transition-colors flex items-center justify-center gap-1.5" onclick="history.back()" type="button">
+<span class="material-symbols-outlined text-[16px]">qr_code_scanner</span>
+<span class="">Recalibrar o Re-escanear Báscula</span>
+</button>
+<!-- Security Micro-footer -->
+<div class="pt-space-xs text-center space-y-1">
+<p class="font-label-sm text-label-sm text-outline flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">lock</span>
+        Firma Manifiesto SHA-256 • Auditoría Inmutable
+      </p>
+<p class="font-body-sm text-body-sm text-outline-variant">
+        Notificación prioritaria enviada a la terminal del supervisor
+      </p>
+</div>
+</div>
+</div>
+<script>
+  // Simple interactive feedback for dispatch action
+  document.getElementById('send-weight-btn')?.addEventListener('click', function() {
+    const btn = this;
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = `
+      <span class="inline-block animate-spin material-symbols-outlined text-[20px]">sync</span>
+      <span>Transmitiendo Registro...</span>
+    `;
+    btn.classList.add('opacity-80', 'pointer-events-none');
+
+    setTimeout(() => {
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-[22px]">check_circle</span>
+        <span>¡Solicitud Transmitida con Éxito!</span>
+      `;
+      btn.classList.remove('opacity-80');
+      btn.classList.add('bg-tertiary', 'text-on-tertiary');
+    }, 1200);
+  });
+</script></main>
+
+<script src="/vista/bind-movil.js"></script></body></html>

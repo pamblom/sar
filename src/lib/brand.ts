@@ -1,0 +1,7 @@
+export const SAR_LOGO = "/sar-logo.svg";
+
+export const SAR_FOLIAGE =
+  "https://lh3.googleusercontent.com/aida/AEtjO1UIGKSwHNhToND4wu3PA0wHwBUCR8ZB7JgXh3YF-gNk-g85U44AFt8vbKnAxec33pOuszOMz6GibOFHksSJqJtPWXcHlQ1z7WTVvgxZQopDB4TK6_VygxlRZdB8dqpfezQE1dLXMHuNpO56rvk8Z8F-I9DAKeKcoSwPH-6jmEtZ5pd8ShQq4EKD_yawazGN9BfqTlyQjanosFvEi-LAAYDg9xFqBzg0n-7D8prX8ylzRQWRIEyIgrp-uto";
+
+export const SAR_SIDEBAR_BG =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuC4bSGZHPUoLci9ZtmB2ak-VCzgnepCR3AiV1BQRq4Gm2UFjUCQ3YoNd87rJQNRPJTNchT-JTHLZwWwabMO0HSQEc2CCeET9Ti6Uoy3BzJghmlxCViWpGcPqGqAftnH0AN5bxR72MBpnO65BFYhnJMMiaFBfC87Vi6uqM1kMAH1mUJoOFRrbqzpqiEU9hW4SgMRPgO2A3TtZ0trh0sRPvJojdBNhpd5Le0nHmJsYP4";

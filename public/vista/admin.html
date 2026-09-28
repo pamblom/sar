@@ -1,0 +1,956 @@
+<!DOCTYPE html><html class="h-full bg-[#050f0d]" lang="es" style=""><head><meta content="web_dashboard" name="shell-type">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"></head><body class="h-full bg-[#061411] text-emerald-100 flex overflow-hidden antialiased select-none"><svg aria-hidden="true" class="inline-defs-container" style="position:absolute;width:0;height:0;overflow:hidden"></svg>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SAR ENTERPRISE - Panel de Administrador Institucional</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Tailwind CSS v3 with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            emerald: {
+              950: '#04110e',
+              900: '#081613',
+              850: '#0c221d',
+              800: '#102e27',
+              700: '#123F36',
+              600: '#2A6B5C',
+              500: '#348b78',
+              400: '#48b8a0',
+              300: '#6ee7c8',
+            },
+            glass: {
+              surface: 'rgba(12, 34, 29, 0.65)',
+              border: 'rgba(74, 222, 128, 0.12)',
+              highlight: 'rgba(255, 255, 255, 0.05)',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Styling for Liquid Glass effects and scrollbars -->
+<style data-purpose="liquid-glass-effects">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .glass-panel {
+      background: linear-gradient(135deg, rgba(16, 46, 39, 0.6) 0%, rgba(8, 22, 19, 0.8) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(52, 139, 120, 0.22);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+      background: rgba(14, 38, 32, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(72, 184, 160, 0.18);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+    }
+
+    .glass-nav-active {
+      background: linear-gradient(90deg, rgba(42, 107, 92, 0.85) 0%, rgba(18, 63, 54, 0.95) 100%);
+      border: 1px solid rgba(110, 231, 200, 0.4);
+      box-shadow: 0 0 15px rgba(42, 107, 92, 0.4);
+    }
+
+    /* Custom scrollbar for dark aesthetic */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(4, 17, 14, 0.8);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(42, 107, 92, 0.5);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(72, 184, 160, 0.8);
+    }
+  </style>
+<!-- END: Custom Styling -->
+<!-- BEGIN: Botanical Sidebar -->
+<aside class="relative w-64 lg:w-72 flex-shrink-0 flex flex-col justify-between overflow-hidden border-r border-emerald-700/40 shadow-2xl z-30" data-purpose="sidebar-navigation">
+<!-- Botanical Background Image with Emerald Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="Fondo Botánico SAR Enterprise" class="w-full h-full object-cover object-left opacity-35 filter saturate-150 brightness-75 scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4bSGZHPUoLci9ZtmB2ak-VCzgnepCR3AiV1BQRq4Gm2UFjUCQ3YoNd87rJQNRPJTNchT-JTHLZwWwabMO0HSQEc2CCeET9Ti6Uoy3BzJghmlxCViWpGcPqGqAftnH0AN5bxR72MBpnO65BFYhnJMMiaFBfC87Vi6uqM1kMAH1mUJoOFRrbqzpqiEU9hW4SgMRPgO2A3TtZ0trh0sRPvJojdBNhpd5Le0nHmJsYP4">
+<div class="absolute inset-0 bg-gradient-to-b from-[#081b16]/95 via-[#0b241e]/90 to-[#04110e]/98 backdrop-blur-[2px]"></div>
+<div class="absolute inset-0 bg-[#123F36]/35 mix-blend-color"></div>
+</div>
+<!-- Sidebar Inner Content -->
+<div class="relative z-10 flex flex-col h-full p-5 justify-between">
+<div>
+<!-- Brand Header with Botanical Logo -->
+<div class="flex items-center gap-3.5 px-2 py-2 mb-6">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-emerald-400 to-teal-200 p-[1.5px] shadow-lg shadow-emerald-950/60"><img alt="SAR Logo" class="w-full h-full object-contain rounded-xl drop-shadow-[0_0_12px_rgba(52,211,153,0.35)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg4ItJptqFlsDeZgKb2jljjUbnq-UHziQM-qA-CDyAVuCaPdALgahr_Iv6wx6ENX0ry47Jb67sOqNBgt2boR3GozWhXpu70DtZqb_TaykoY_ASDYI3Gavky3BHzhVgNoRX1lqJsgGvEdmB3aAHv1l3k8JLLzDu0yK3NN64aEf1UYxYdeEONIoJJfGCpNxIv8b-mh1x3Kh-AGgHd_JiuKyE25RkD8Gu_oPaHIvYlB_o8MLK06DuSAqo"></div>
+<div class="flex flex-col">
+<span class="text-xl font-bold tracking-wider text-white flex items-center gap-1.5">
+              SAR <span class="text-[10px] tracking-widest px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-400/30">QUANTUM</span>
+</span>
+<span class="text-[10px] tracking-[0.25em] text-emerald-400/80 uppercase font-medium">ENTERPRISE OS</span>
+</div>
+</div>
+<!-- Action Button: Nueva Solicitud -->
+<div class="px-1 mb-6">
+</div>
+<!-- Navigation Links (Exact requested list) -->
+<nav class="space-y-1.5 text-xs font-medium px-1">
+<!-- 1. Dashboard (Active) -->
+<a class="flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all text-emerald-200/80 hover:text-white hover:bg-emerald-800/40" href="#">
+<div class="flex items-center gap-3">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout-grid" aria-hidden="true" class="lucide lucide-layout-grid w-4 h-4 text-emerald-200"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg>
+<span class="font-semibold text-sm">Dashboard</span>
+</div>
+
+</a>
+<!-- 2. Analíticas -->
+<a class="text-emerald-200/80 hover:text-white hover:bg-emerald-800/40 flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all border border-transparent hover:border-emerald-700/30" href="#">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="line-chart" aria-hidden="true" class="lucide lucide-line-chart w-4 h-4 text-emerald-400"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+<span class="">Analíticas</span>
+</a>
+<!-- 3. Solicitudes -->
+<a class="text-emerald-200/80 hover:text-white hover:bg-emerald-800/40 flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all border border-transparent hover:border-emerald-700/30" href="#">
+<div class="flex items-center gap-3">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="inbox" aria-hidden="true" class="lucide lucide-inbox w-4 h-4 text-emerald-400"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg>
+<span class="">Solicitudes</span>
+</div>
+<span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-emerald-500/25 text-emerald-300 border border-emerald-400/20">14</span>
+</a>
+<!-- 4. Historial -->
+<a class="text-emerald-200/80 hover:text-white hover:bg-emerald-800/40 flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all border border-transparent hover:border-emerald-700/30" href="#">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="clock" aria-hidden="true" class="lucide lucide-clock w-4 h-4 text-emerald-400"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+<span class="">Historial</span>
+</a>
+<!-- 5. Ranking de usuarios -->
+<a class="text-emerald-200/80 hover:text-white hover:bg-emerald-800/40 flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all border border-transparent hover:border-emerald-700/30" href="#">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="award" aria-hidden="true" class="lucide lucide-award w-4 h-4 text-emerald-400"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></svg>
+<span class="">Ranking de Usuarios</span>
+<a class="text-emerald-200/80 hover:text-white hover:bg-emerald-800/40 flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all border border-transparent hover:border-emerald-700/30" href="#"><svg class="w-4 h-4 text-emerald-400" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span class="">Gestión de Usuarios</span></a>
+<!-- 6. Materiales -->
+<a class="text-emerald-200/80 hover:text-white hover:bg-emerald-800/40 flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all border border-transparent hover:border-emerald-700/30" href="#">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="boxes" aria-hidden="true" class="lucide lucide-boxes w-4 h-4 text-emerald-400"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"></path><path d="m7 16.5-4.74-2.85"></path><path d="m7 16.5 5-3"></path><path d="M7 16.5v5.17"></path><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"></path><path d="m17 16.5-5-3"></path><path d="m17 16.5 4.74-2.85"></path><path d="M17 16.5v5.17"></path><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"></path><path d="M12 8 7.26 5.15"></path><path d="m12 8 4.74-2.85"></path><path d="M12 13.5V8"></path></svg>
+<span class="">Materiales</span>
+</a>
+<!-- 7. Reportes -->
+<a class="text-emerald-200/80 hover:text-white hover:bg-emerald-800/40 flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all border border-transparent hover:border-emerald-700/30" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-400"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg><span class="">Reporte Ambiental</span></a>
+</nav>
+</div>
+<!-- Bottom Profile & Status Card in Sidebar -->
+<div class="mt-auto pt-4 border-t border-emerald-700/30">
+<div class="p-2.5 rounded-xl bg-emerald-950/70 border border-emerald-600/25 flex items-center gap-3">
+<div class="relative">
+<div class="w-9 h-9 rounded-lg bg-emerald-800 flex items-center justify-center font-bold text-emerald-200 border border-emerald-400/40 text-xs shadow">
+              AM
+            </div>
+<span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#09221b]"></span>
+</div>
+<div class="overflow-hidden flex-1">
+<p class="text-xs font-semibold text-white truncate leading-tight">Admin Central</p>
+<p class="text-[10px] text-emerald-400/90 font-mono tracking-wider flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Nivel IV • Cuántico
+            </p>
+</div>
+<button class="text-emerald-400 hover:text-white p-1 hover:bg-emerald-800/50 rounded-lg transition-colors" title="Ajustes del Sistema">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sliders" aria-hidden="true" class="lucide lucide-sliders w-3.5 h-3.5"><path d="M10 8h4"></path><path d="M12 21v-9"></path><path d="M12 8V3"></path><path d="M17 16h4"></path><path d="M19 12V3"></path><path d="M19 21v-5"></path><path d="M3 14h4"></path><path d="M5 10V3"></path><path d="M5 21v-7"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- END: Botanical Sidebar -->
+<!-- BEGIN: Main Dashboard Content Area -->
+<main class="flex-1 flex flex-col h-full min-w-0 overflow-y-auto bg-[#071613]" style="background: radial-gradient(circle at 50% 20%, rgba(18, 63, 54, 0.65) 0%, rgba(8, 22, 19, 0.92) 75%), rgb(7, 22, 19); backdrop-filter: blur(24px); color: rgb(242, 247, 244);"><div class="flex flex-col w-full font-headline-md">
+<!-- Interactive Script for Active Sidebar Highlight & Client-side Filters -->
+<script>
+    function toggleCollectorModal(show) {
+      const modal = document.getElementById("collector-detail-modal");
+      if (modal) {
+        modal.classList.toggle("hidden", !show);
+      }
+    }
+  </script>
+<!-- Ambient Botanical Glass Glow Accent -->
+<div class="relative w-full p-6 lg:p-10 flex flex-col gap-8 max-w-[1600px] mx-auto min-w-0">
+<!-- Top Decorative Gradient Blurs (Local bounding) -->
+<div class="absolute -top-12 right-12 w-96 h-96 bg-primary-container/20 rounded-full blur-[110px] pointer-events-none -z-10"></div>
+<div class="absolute top-72 -left-16 w-80 h-80 bg-tertiary-container/15 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+<!-- BEGIN: Header Section & Breadcrumbs -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-5 border-b border-primary/10 pb-6">
+<div class="flex flex-col gap-1.5">
+<!-- Breadcrumb metadata line -->
+<nav class="flex items-center gap-2 text-label-sm font-label-sm tracking-wider uppercase text-secondary/80">
+
+
+
+
+<span class="text-primary font-bold">Gestión de Recolectores</span>
+</nav>
+<!-- Main Title & Operational Status -->
+<div class="flex items-center gap-3.5 mt-1">
+<div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#123F36] to-[#2A6B5C] flex items-center justify-center text-primary-fixed shadow-lg shadow-black/40">
+<!-- Refined SVG People Management Icon -->
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+</div>
+<div>
+<h1 class="text-headline-lg font-headline-lg text-white tracking-tight leading-none flex items-center gap-3">
+              Gestión de Recolectores
+              <span class="text-label-sm font-label-sm px-2.5 py-0.5 rounded-full bg-primary/10 text-primary-fixed border border-primary/20 tracking-wider uppercase">
+                Auditoría Activa
+              </span>
+</h1>
+<p class="text-body-sm font-body-sm text-secondary/80 mt-1">
+              Supervisión de acreditación, pesaje certificado, rangos de recompensa y cumplimiento operativo institucional.
+            </p>
+</div>
+</div>
+</div>
+<!-- Quick Action Group -->
+<div class="flex items-center gap-3 shrink-0">
+
+</div>
+</div>
+<!-- END: Header Section -->
+<!-- BEGIN: Quick Overview KPI Cards (Designed with pristine light #FFF5F5 palette and deep botanical accents) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><!-- KPI 1: Total Recolectores -->
+<div class="rounded-2xl p-5 bg-[#123F36]/80 backdrop-blur-md border border-[#2A6B5C]/50 text-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-0.5 relative overflow-hidden flex flex-col justify-between group">
+  <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none"></div>
+  <div class="flex items-start justify-between">
+    <span class="text-body-sm font-body-sm text-emerald-200/90 font-semibold uppercase tracking-wider">Total Recolectores</span>
+    <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center border border-emerald-400/30">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+    </div>
+  </div>
+  <div class="mt-4 flex items-baseline justify-between">
+    <div id="kpi-total" class="text-headline-lg font-headline-lg text-white tracking-tight font-extrabold">150</div>
+    <span class="inline-flex items-center gap-1 text-label-sm font-label-sm font-bold text-emerald-200 bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-400/30">
+      <svg class="w-3 h-3 text-emerald-300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+      +8 este mes
+    </span>
+  </div>
+  <div class="mt-2 text-label-sm font-label-sm text-emerald-200/70">Censo actualizado en tiempo real</div>
+</div>
+
+<!-- KPI 2: Recolectores Activos -->
+<div class="rounded-2xl p-5 bg-[#123F36]/80 backdrop-blur-md border border-[#2A6B5C]/50 text-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-0.5 relative overflow-hidden flex flex-col justify-between group">
+  <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none"></div>
+  <div class="flex items-start justify-between">
+    <span class="text-body-sm font-body-sm text-emerald-200/90 font-semibold uppercase tracking-wider">Recolectores Activos</span>
+    <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center border border-emerald-400/30">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+    </div>
+  </div>
+  <div class="mt-4 flex items-baseline justify-between">
+    <div id="kpi-activos" class="text-headline-lg font-headline-lg text-white tracking-tight font-extrabold">142</div>
+    <span class="inline-flex items-center gap-1.5 text-label-sm font-label-sm font-bold text-emerald-200 bg-emerald-500/20 px-2.5 py-0.5 rounded-full border border-emerald-400/30">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      94.6%
+    </span>
+  </div>
+  <div class="mt-2 text-label-sm font-label-sm text-emerald-200/70">94.6% de participación</div>
+</div>
+
+<!-- KPI 3: Material Predominante -->
+<div class="rounded-2xl p-5 bg-[#123F36]/80 backdrop-blur-md border border-[#2A6B5C]/50 text-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-0.5 relative overflow-hidden flex flex-col justify-between group">
+  <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none"></div>
+  <div class="flex items-start justify-between">
+    <span class="text-body-sm font-body-sm text-emerald-200/90 font-semibold uppercase tracking-wider">Material Predominante</span>
+    <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center border border-emerald-400/30">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+        <path d="m7 16.5-4.74-2.85"></path>
+        <path d="m7 16.5 5-3"></path>
+        <path d="M7 16.5v5.17"></path>
+        <path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"></path>
+      </svg>
+    </div>
+  </div>
+  <div class="mt-4 flex items-baseline justify-between">
+    <div id="kpi-material" class="text-headline-lg font-headline-lg text-white tracking-tight font-extrabold">PET 1</div>
+    <span class="text-label-sm font-label-sm font-semibold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-md border border-emerald-400/30">
+      64.2%
+    </span>
+  </div>
+  <div class="mt-2 text-label-sm font-label-sm text-emerald-200/70">854 kg recuperados este ciclo</div>
+</div>
+
+<!-- KPI 4: Puntos Acreditados Mes -->
+<div class="rounded-2xl p-5 bg-[#123F36]/80 backdrop-blur-md border border-[#2A6B5C]/50 text-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-0.5 relative overflow-hidden flex flex-col justify-between group">
+  <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none"></div>
+  <div class="flex items-start justify-between">
+    <span class="text-body-sm font-body-sm text-emerald-200/90 font-semibold uppercase tracking-wider">Puntos Acreditados Mes</span>
+    <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center border border-emerald-400/30">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="6"></circle>
+        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+      </svg>
+    </div>
+  </div>
+  <div class="mt-4 flex items-baseline justify-between">
+    <div id="kpi-puntos" class="text-headline-lg font-headline-lg text-white tracking-tight font-extrabold">41,250</div>
+    <span class="text-label-sm font-label-sm font-semibold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-md border border-emerald-400/30">
+      En Tokens
+    </span>
+  </div>
+  <div class="mt-2 text-label-sm font-label-sm text-emerald-200/70">Equivalente a $4.1M COP pagados</div>
+</div></div>
+<!-- END: Overview Cards -->
+<!-- BEGIN: Visual Reference Banner & System Sync Indicator -->
+<div class="rounded-2xl bg-gradient-to-r from-surface-container-low via-surface-container to-surface-container-low p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+<div class="flex items-center gap-4">
+<div class="w-14 h-10 rounded-lg overflow-hidden shrink-0 shadow">
+
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+
+</div>
+
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+
+</div>
+</div>
+<!-- END: Visual Reference Banner -->
+<!-- BEGIN: Filter Bar & Fast Actions Card (#FFF5F5 Surface) -->
+<div class="rounded-2xl p-5 bg-[#123F36]/80 backdrop-blur-md border border-[#2A6B5C]/40 text-emerald-100 shadow-xl flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+<!-- Left Filters -->
+<div class="flex flex-wrap items-center gap-3 flex-1 min-w-0">
+<!-- Search Input -->
+<div class="relative flex-1 min-w-[220px] max-w-md">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-300">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+</div>
+<input class="w-full pl-10 pr-4 py-2 text-body-sm font-body-sm rounded-xl bg-emerald-950/70 border border-emerald-600/25 text-emerald-100 placeholder-emerald-200/50 focus:outline-none focus:ring-2 focus:ring-[#2A6B5C] shadow-inner transition-all duration-200" placeholder="Buscar por ID, nombre o DNI..." type="text">
+</div>
+<!-- Filter: Estado -->
+<div class="relative min-w-[160px]">
+<select class="w-full appearance-none pl-3.5 pr-8 py-2 text-body-sm font-body-sm font-medium rounded-xl bg-emerald-950/70 border border-emerald-600/25 text-emerald-100 focus:outline-none focus:ring-2 focus:ring-[#2A6B5C] shadow-inner cursor-pointer">
+<option class="bg-[#081613] text-emerald-100" value="todos">Todos los Estados</option>
+<option class="bg-[#081613] text-emerald-100" value="activo">Activo (138)</option>
+<option class="bg-[#081613] text-emerald-100" value="alerta">En Alerta (9)</option>
+<option class="bg-[#081613] text-emerald-100" value="bloqueado">Bloqueado (3)</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-emerald-300">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</div>
+</div>
+<!-- Filter: Material Frecuente -->
+<div class="relative min-w-[180px]">
+<select class="w-full appearance-none pl-3.5 pr-8 py-2 text-body-sm font-body-sm font-medium rounded-xl bg-emerald-950/70 border border-emerald-600/25 text-emerald-100 focus:outline-none focus:ring-2 focus:ring-[#2A6B5C] shadow-inner cursor-pointer">
+<option class="bg-[#081613] text-emerald-100" value="todos">Todos los Materiales</option>
+<option class="bg-[#081613] text-emerald-100" value="pet">Plástico PET</option>
+<option class="bg-[#081613] text-emerald-100" value="metales">Metales / Bronce</option>
+<option class="bg-[#081613] text-emerald-100" value="carton">Cartón / Papel</option>
+<option class="bg-[#081613] text-emerald-100" value="vidrio">Vidrio Cristalino</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-emerald-300">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</div>
+</div>
+<!-- Clear Filter Quick Button -->
+<button class="p-2 rounded-xl text-emerald-300 hover:text-white hover:bg-emerald-800/40 border border-transparent hover:border-emerald-600/25 transition-colors" title="Restablecer filtros" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+<path d="M3 3v5h5"></path>
+</svg>
+</button>
+</div>
+<!-- Right Export & Settings -->
+<div class="flex items-center gap-2.5 shrink-0 self-end lg:self-auto">
+<button class="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/25 border border-emerald-400/30 text-emerald-200 hover:text-white font-title-md text-title-md flex items-center gap-2 shadow-sm transition-all duration-200">
+<svg class="w-4 h-4 text-emerald-300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" x2="12" y1="15" y2="3"></line>
+</svg>
+<span class="">Exportar CSV</span>
+</button>
+<button class="px-3 py-2 rounded-xl bg-emerald-950/70 hover:bg-emerald-800/50 border border-emerald-600/25 text-emerald-300 hover:text-white transition-colors" title="Configurar Columnas">
+<svg class="w-4 h-4 text-emerald-300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<line x1="4" x2="4" y1="21" y2="14"></line>
+<line x1="4" x2="4" y1="10" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="12"></line>
+<line x1="12" x2="12" y1="8" y2="3"></line>
+<line x1="20" x2="20" y1="21" y2="16"></line>
+<line x1="20" x2="20" y1="12" y2="3"></line>
+<line x1="1" x2="7" y1="14" y2="14"></line>
+<line x1="9" x2="15" y1="8" y2="8"></line>
+<line x1="17" x2="23" y1="16" y2="16"></line>
+</svg>
+</button>
+</div>
+</div>
+<!-- END: Filter Bar -->
+<!-- BEGIN: Collectors Core Data Table Container (#FFF5F5 Master Surface) -->
+<div class="rounded-3xl bg-[#123F36]/80 backdrop-blur-md border border-[#2A6B5C]/40 text-emerald-100 shadow-2xl overflow-hidden flex flex-col">
+<!-- Table Header Status Strip -->
+<div class="px-6 py-4 bg-[#123F36]/90 border-b border-[#2A6B5C]/40 flex items-center justify-between flex-wrap gap-3" style="background: linear-gradient(135deg, rgba(42, 107, 92, 0.45) 0%, rgba(18, 63, 54, 0.6) 100%);">
+<div class="flex items-center gap-3">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#4ade80]"></span>
+<span class="text-title-md font-title-md text-white font-bold">Listado General de Operadores y Recolectores</span>
+<span class="text-label-sm font-label-sm px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-semibold">150 Enrolados</span>
+</div>
+<div class="flex items-center gap-2 text-label-sm font-label-sm text-emerald-200/80">
+<span class="font-medium">Orden actual:</span>
+<span class="font-bold text-white">Puntos Acumulados (Descendente)</span>
+</div>
+</div>
+<!-- Responsive Table View -->
+<div class="overflow-x-auto min-w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-emerald-950/70 border-b border-emerald-700/30 text-label-sm font-label-sm uppercase tracking-wider text-emerald-200/90 select-none">
+<th class="py-4 px-6 font-semibold w-24" scope="col">ID</th>
+<th class="py-4 px-6 font-semibold" scope="col">Recolector / Material Principal</th>
+<th class="py-4 px-6 font-semibold text-right" scope="col">Puntos Acumulados</th>
+<th class="py-4 px-6 font-semibold text-center w-36" scope="col">Rango SAR</th>
+<th class="py-4 px-6 font-semibold text-center w-36" scope="col">Estado</th>
+<th class="py-4 px-6 font-semibold text-right w-44" scope="col">Acciones</th>
+</tr>
+</thead>
+<tbody id="live-body" class="divide-y divide-[#2A6B5C]/15 text-body-md font-body-md text-emerald-100">
+<!-- ROW 1: Carlos Mendoza (#102) - Gold Rank #1 -->
+<tr class="hover:bg-emerald-800/40 transition-colors duration-150 group">
+<td class="py-4 px-6 font-mono text-label-md font-label-md font-bold text-emerald-300">
+                #102
+              </td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3.5">
+<div class="relative shrink-0">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#123F36] to-[#2A6B5C] flex items-center justify-center font-bold text-white text-body-md shadow border border-emerald-400/30">
+                      CM
+                    </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#09221b]"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-white group-hover:text-emerald-300 transition-colors truncate">
+                      Carlos Mendoza
+                    </span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-semibold">
+                        Plástico PET
+                      </span>
+<span class="text-label-sm font-label-sm text-emerald-200/70">CC: ••••4912</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex flex-col items-end">
+<span class="font-extrabold text-white font-headline-sm text-headline-sm tracking-tight">15,200 pts</span>
+<span class="text-label-sm font-label-sm text-emerald-300 font-semibold flex items-center gap-1">
+<svg class="w-3 h-3 text-emerald-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    248.5 kg entregados
+                  </span>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<!-- Gold Badge Vector -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/30 text-amber-300 border border-amber-500/40 shadow-sm font-bold text-label-sm">
+<svg class="w-4 h-4 text-amber-500 fill-amber-500" viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="6"></circle>
+<path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+</svg>
+<span class="">Rango 1</span>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 text-label-sm font-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Activo
+                </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-xl text-emerald-300 hover:text-white hover:bg-emerald-800/50 transition-colors" onclick="toggleCollectorModal(true)" title="Ver Detalle / Perfil">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-amber-300 hover:text-white hover:bg-amber-200/50 transition-colors" title="Suspender Operador">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="4.93" x2="19.07" y1="4.93" y2="19.07"></line>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-rose-300 hover:text-white hover:bg-rose-200/50 transition-colors" title="Bloquear Usuario">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 2: Mariana Rivas (#219) - Silver Rank #2 -->
+<tr class="hover:bg-emerald-800/40 transition-colors duration-150 group">
+<td class="py-4 px-6 font-mono text-label-md font-label-md font-bold text-emerald-300">
+                #219
+              </td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3.5">
+<div class="relative shrink-0">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#1E3D35] to-[#348b78] flex items-center justify-center font-bold text-white text-body-md shadow border border-emerald-400/30">
+                      MR
+                    </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#09221b]"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-white group-hover:text-emerald-300 transition-colors truncate">
+                      Mariana Rivas
+                    </span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-semibold">
+                        Metales / Bronce
+                      </span>
+<span class="text-label-sm font-label-sm text-emerald-200/70">CC: ••••8231</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex flex-col items-end">
+<span class="font-extrabold text-white font-headline-sm text-headline-sm tracking-tight">12,400 pts</span>
+<span class="text-label-sm font-label-sm text-emerald-300 font-semibold flex items-center gap-1">
+<svg class="w-3 h-3 text-emerald-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    182.0 kg entregados
+                  </span>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<!-- Silver Badge Vector -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-slate-300 to-gray-200 text-slate-800 border border-slate-400/40 shadow-sm font-bold text-label-sm">
+<svg class="w-4 h-4 text-slate-600 fill-slate-400" viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="6"></circle>
+<path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+</svg>
+<span class="">Rango 2</span>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 text-label-sm font-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  Activo
+                </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-xl text-emerald-300 hover:text-white hover:bg-emerald-800/50 transition-colors" title="Ver Detalle / Perfil">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-amber-300 hover:text-white hover:bg-amber-200/50 transition-colors" title="Suspender Operador">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="4.93" x2="19.07" y1="4.93" y2="19.07"></line>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-rose-300 hover:text-white hover:bg-rose-200/50 transition-colors" title="Bloquear Usuario">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: Ana García (#084) - Bronze Rank #3 -->
+<tr class="hover:bg-emerald-800/40 transition-colors duration-150 group">
+<td class="py-4 px-6 font-mono text-label-md font-label-md font-bold text-emerald-300">
+                #084
+              </td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3.5">
+<div class="relative shrink-0">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#123F36] to-emerald-700 flex items-center justify-center font-bold text-white text-body-md shadow border border-emerald-400/30">
+                      AG
+                    </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#09221b]"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-white group-hover:text-emerald-300 transition-colors truncate">
+                      Ana García
+                    </span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-semibold">
+                        Cartón / Papel
+                      </span>
+<span class="text-label-sm font-label-sm text-emerald-200/70">CC: ••••6104</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex flex-col items-end">
+<span class="font-extrabold text-white font-headline-sm text-headline-sm tracking-tight">9,850 pts</span>
+<span class="text-label-sm font-label-sm text-emerald-300 font-semibold flex items-center gap-1">
+<svg class="w-3 h-3 text-emerald-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    312.0 kg entregados
+                  </span>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<!-- Bronze Badge Vector -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-700/20 text-amber-200 border border-amber-700/40 shadow-sm font-bold text-label-sm">
+<svg class="w-4 h-4 text-amber-400 fill-amber-500" viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="6"></circle>
+<path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+</svg>
+<span class="">Rango 3</span>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 text-label-sm font-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  Activo
+                </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-xl text-emerald-300 hover:text-white hover:bg-emerald-800/50 transition-colors" title="Ver Detalle / Perfil">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-amber-300 hover:text-white hover:bg-amber-200/50 transition-colors" title="Suspender Operador">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="4.93" x2="19.07" y1="4.93" y2="19.07"></line>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-rose-300 hover:text-white hover:bg-rose-200/50 transition-colors" title="Bloquear Usuario">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: Roberto Gómez (#067) - Rank #8 -->
+<tr class="hover:bg-emerald-800/40 transition-colors duration-150 group">
+<td class="py-4 px-6 font-mono text-label-md font-label-md font-bold text-emerald-300">
+                #067
+              </td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3.5">
+<div class="relative shrink-0">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#123F36] to-[#2A6B5C] flex items-center justify-center font-bold text-white text-body-md shadow border border-emerald-400/30">
+                      RG
+                    </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#09221b]"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-white group-hover:text-emerald-300 transition-colors truncate">
+                      Roberto Gómez
+                    </span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-semibold">
+                        Vidrio Cristalino
+                      </span>
+<span class="text-label-sm font-label-sm text-emerald-200/70">CC: ••••1578</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex flex-col items-end">
+<span class="font-extrabold text-white font-headline-sm text-headline-sm tracking-tight">6,800 pts</span>
+<span class="text-label-sm font-label-sm text-emerald-300 font-semibold flex items-center gap-1">
+<svg class="w-3 h-3 text-emerald-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    145.0 kg entregados
+                  </span>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="font-mono text-label-md font-label-md font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30">
+                  # 8
+                </span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 text-label-sm font-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  Activo
+                </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-xl text-emerald-300 hover:text-white hover:bg-emerald-800/50 transition-colors" title="Ver Detalle / Perfil">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-amber-300 hover:text-white hover:bg-amber-200/50 transition-colors" title="Suspender Operador">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="4.93" x2="19.07" y1="4.93" y2="19.07"></line>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-rose-300 hover:text-white hover:bg-rose-200/50 transition-colors" title="Bloquear Usuario">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 5: Luis Sánchez (#156) - Rank #15 - Alerta -->
+<tr class="hover:bg-emerald-800/40 transition-colors duration-150 group">
+<td class="py-4 px-6 font-mono text-label-md font-label-md font-bold text-amber-300">
+                #156
+              </td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3.5">
+<div class="relative shrink-0">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-700 to-amber-900 flex items-center justify-center font-bold text-white text-body-md shadow border border-amber-500/40">
+                      LS
+                    </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-amber-500 border-2 border-[#09221b]"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-white group-hover:text-amber-300 transition-colors truncate">
+                      Luis Sánchez
+                    </span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-amber-700/20 text-amber-200 border border-amber-700/40 font-semibold">
+                        Metales / Chatarra
+                      </span>
+<span class="text-label-sm font-label-sm text-emerald-200/70">CC: ••••3319</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex flex-col items-end">
+<span class="font-extrabold text-white font-headline-sm text-headline-sm tracking-tight">4,100 pts</span>
+<span class="text-label-sm font-label-sm text-amber-400 font-semibold flex items-center gap-1">
+<svg class="w-3 h-3 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+                    Auditoría en curso
+                  </span>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="font-mono text-label-md font-label-md font-bold px-3 py-1 rounded-full bg-amber-700/20 text-amber-300 border border-amber-700/40">
+                  # 15
+                </span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-label-sm font-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                  Alerta
+                </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-xl text-emerald-300 hover:text-white hover:bg-emerald-800/50 transition-colors" title="Ver Detalle / Perfil">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-amber-300 hover:text-white hover:bg-amber-200/50 transition-colors" title="Advertencia Emitida">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+<line x1="12" x2="12" y1="9" y2="13"></line>
+<line x1="12" x2="12.01" y1="17" y2="17"></line>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-rose-300 hover:text-white hover:bg-rose-200/50 transition-colors" title="Bloquear Usuario">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 6: Pedro Torres (#042) - Rank #89 - Bloqueado -->
+<tr class="hover:bg-emerald-800/40 transition-colors duration-150 group">
+<td class="py-4 px-6 font-mono text-label-md font-label-md font-bold text-rose-400">
+                #042
+              </td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3.5 opacity-80 group-hover:opacity-100 transition-opacity">
+<div class="relative shrink-0">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-rose-900 to-rose-950 flex items-center justify-center font-bold text-white text-body-md shadow border border-rose-600/40">
+                      PT
+                    </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-rose-500 border-2 border-[#09221b]"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-rose-300 group-hover:text-rose-200 transition-colors truncate line-through decoration-rose-400">
+                      Pedro Torres
+                    </span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-300 border border-rose-700/40 font-semibold">
+                        Plástico Mixto
+                      </span>
+<span class="text-label-sm font-label-sm text-emerald-200/70">CC: ••••9940</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex flex-col items-end opacity-75">
+<span class="font-extrabold text-white font-headline-sm text-headline-sm tracking-tight">350 pts</span>
+<span class="text-label-sm font-label-sm text-rose-400 font-semibold flex items-center gap-1">
+                    Cuenta Suspendida
+                  </span>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="font-mono text-label-md font-label-md font-bold px-3 py-1 rounded-full bg-rose-950/60 text-rose-300 border border-rose-700/40">
+                  # 89
+                </span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-label-sm font-label-sm font-bold">
+<svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+                  Bloqueado
+                </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-2 rounded-xl text-emerald-300 hover:text-white hover:bg-emerald-800/50 transition-colors" title="Ver Expediente de Bloqueo">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</button>
+<button class="p-2 rounded-xl text-emerald-300 hover:text-white hover:bg-emerald-800/50 transition-colors" title="Desbloquear y Restaurar Acceso">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+</svg>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- BEGIN: Pagination & Bottom Meta Strip -->
+<div class="p-5 bg-emerald-950/70 border-t border-emerald-700/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+<!-- Showing Counter -->
+<div class="flex items-center gap-4 text-body-sm font-body-sm text-emerald-200/80">
+<span class="">Mostrando <strong class="text-white">1-6</strong> de <strong class="text-white">150</strong> usuarios</span>
+<div class="hidden sm:flex items-center gap-2">
+<span class="text-emerald-400/40">•</span>
+<div class="relative">
+<select class="appearance-none pl-2.5 pr-7 py-1 text-label-sm font-label-sm rounded-lg bg-emerald-900 border border-emerald-600/25 text-emerald-100 focus:outline-none focus:ring-1 focus:ring-[#2A6B5C] cursor-pointer shadow-sm">
+<option value="10" class="bg-[#081613] text-emerald-100">10 por página</option>
+<option value="25" class="bg-[#081613] text-emerald-100">25 por página</option>
+<option value="50" class="bg-[#081613] text-emerald-100">50 por página</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none text-emerald-300">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Navigation Buttons -->
+<div class="flex items-center gap-1.5 select-none">
+<!-- Previous Button -->
+<button class="p-2 rounded-xl bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 disabled:opacity-40 disabled:pointer-events-none transition-colors shadow-sm border border-emerald-700/30" disabled="">
+<svg class="w-4 h-4 text-emerald-300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<polyline points="15 18 9 12 15 6"></polyline>
+</svg>
+</button>
+<!-- Active Page 1 -->
+<button class="w-8 h-8 rounded-xl bg-[#2A6B5C] text-white font-title-md text-title-md flex items-center justify-center shadow-md border border-emerald-400/30">
+            1
+          </button>
+<!-- Page 2 -->
+<button class="w-8 h-8 rounded-xl bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 font-title-md text-title-md flex items-center justify-center transition-colors shadow-sm border border-emerald-700/30">
+            2
+          </button>
+<!-- Page 3 -->
+<button class="w-8 h-8 rounded-xl bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 font-title-md text-title-md flex items-center justify-center transition-colors shadow-sm border border-emerald-700/30">
+            3
+          </button>
+<span class="px-1 text-label-sm font-label-sm text-emerald-200/70">...</span>
+<!-- Last Page 15 -->
+<button class="w-8 h-8 rounded-xl bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 font-title-md text-title-md flex items-center justify-center transition-colors shadow-sm border border-emerald-700/30">
+            15
+          </button>
+<!-- Next Button -->
+<button class="p-2 rounded-xl bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 transition-colors shadow-sm border border-emerald-700/30">
+<svg class="w-4 h-4 text-emerald-300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</button>
+</div>
+</div>
+<!-- END: Pagination -->
+</div>
+<!-- END: Core Table Container -->
+</div>
+<!-- BEGIN: Modal Quick Inspection Drawer (Toggled via JS) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md" id="collector-detail-modal"><div class="relative w-full max-w-lg rounded-3xl bg-[#123F36]/90 backdrop-blur-md border border-[#2A6B5C]/50 text-emerald-100 shadow-2xl p-6 flex flex-col gap-6"><div class="flex items-center justify-between border-b border-[#2A6B5C]/30 pb-4"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#123F36] to-[#2A6B5C] flex items-center justify-center font-bold text-white text-body-md shadow border border-emerald-400/30">CM</div><div><h3 class="text-title-md font-bold text-white">Expediente de Recolector</h3><p class="text-label-sm text-emerald-200/70">ID #102 • Carlos Mendoza</p></div></div><button onclick="toggleCollectorModal(false)" class="p-1.5 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-800/50 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div><div class="grid grid-cols-2 gap-3 text-body-sm"><div class="p-3 rounded-xl bg-emerald-950/70 border border-emerald-600/25"><span class="text-label-sm text-emerald-300/80 block">Material Frecuente</span><span class="font-bold text-white text-body-md">Plástico PET</span></div><div class="p-3 rounded-xl bg-emerald-950/70 border border-emerald-600/25"><span class="text-label-sm text-emerald-300/80 block">Rango Vigente</span><span class="font-bold text-amber-300 text-body-md">Rango 1 Oro</span></div><div class="p-3 rounded-xl bg-emerald-950/70 border border-emerald-600/25"><span class="text-label-sm text-emerald-300/80 block">Total Acumulado</span><span class="font-bold text-white text-body-md">15,200 pts</span></div><div class="p-3 rounded-xl bg-emerald-950/70 border border-emerald-600/25"><span class="text-label-sm text-emerald-300/80 block">Pesaje Certificado</span><span class="font-bold text-white text-body-md">248.5 kg</span></div></div><div class="flex justify-end gap-2 pt-2 border-t border-[#2A6B5C]/30"><button onclick="toggleCollectorModal(false)" class="px-4 py-2 rounded-xl bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 text-label-md font-medium transition-colors border border-emerald-700/30">Cerrar</button><button onclick="toggleCollectorModal(false)" class="px-4 py-2 rounded-xl bg-[#2A6B5C] hover:bg-emerald-500/25 text-white text-label-md font-bold transition-colors border border-emerald-400/30">Guardar Cambios</button></div></div></div>
+<!-- END: Modal -->
+</div></main>
+<!-- END: Main Dashboard Content Area -->
+<!-- Lucide icons activator script -->
+<script data-purpose="icon-renderer">
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+
+
+
+
+
+
+
+
+<script src="/vista/bind-admin.js"></script>
+</body></html>

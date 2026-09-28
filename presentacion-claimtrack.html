@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClaimTrack — Cómo funciona por dentro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --card: #ffffff;
+      --accent: #0369a1;
+      --accent-soft: #e0f2fe;
+      --ok: #047857;
+      --warn: #b45309;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; background: #0f172a; color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+    .deck {
+      position: absolute; inset: 0; margin: auto;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute; inset: 0;
+      display: none;
+      padding: 48px 56px 88px;
+      flex-direction: column;
+    }
+    .slide.on { display: flex; }
+    .kicker { font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+    h1, h2 { font-family: "Source Serif 4", Georgia, serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.12; }
+    h1 { font-size: clamp(36px, 4.4vw, 58px); }
+    h2 { font-size: clamp(26px, 2.8vw, 38px); margin: 8px 0 22px; }
+    p, li { font-size: 18px; line-height: 1.55; color: var(--muted); }
+    .lead { font-size: 22px; max-width: 44rem; }
+    .grid { display: grid; gap: 16px; }
+    .g2 { grid-template-columns: 1fr 1fr; }
+    .g3 { grid-template-columns: 1fr 1fr 1fr; }
+    .g4 { grid-template-columns: repeat(4, 1fr); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 20px;
+    }
+    .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .card p, .card li { font-size: 15px; }
+    .tag {
+      display: inline-flex; align-items: center;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+      padding: 4px 8px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent);
+    }
+    .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 999px; padding: 8px 14px; font-size: 14px; font-weight: 600; color: var(--ink);
+    }
+    .chip.now { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .arrow { color: var(--accent); font-weight: 700; }
+    .uml { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 18px; align-items: start; }
+    .cls { background: #fff; border: 1px solid var(--ink); border-radius: 8px; overflow: hidden; font-size: 13px; }
+    .cls header { background: var(--ink); color: #fff; padding: 8px 12px; font-weight: 700; text-align: center; }
+    .cls .sec { padding: 8px 12px; border-top: 1px solid var(--line); color: var(--muted); line-height: 1.5; }
+    .rel { font-size: 13px; color: var(--accent); font-weight: 600; text-align: center; margin-top: 8px; }
+    .code {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 13px; background: #0f172a; color: #e2e8f0;
+      border-radius: 12px; padding: 14px 16px; line-height: 1.6;
+    }
+    .code b { color: #7dd3fc; font-weight: 600; }
+    .layers { display: grid; gap: 10px; }
+    .layer {
+      display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: center;
+      background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px;
+    }
+    .layer strong { font-size: 14px; }
+    .layer span { font-size: 14px; color: var(--muted); }
+    .people { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .note {
+      display: none;
+      margin-top: auto;
+      background: #0f172a;
+      color: #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .notes-on .note { display: block; }
+    .bar { position: absolute; top: 0; left: 0; height: 3px; background: var(--accent); }
+    .nav {
+      position: absolute; bottom: 22px; left: 56px; right: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; color: var(--muted);
+    }
+    .nav button {
+      width: 36px; height: 36px; border: 1px solid var(--line); background: #fff;
+      border-radius: 999px; cursor: pointer; font-size: 16px; color: var(--ink);
+    }
+    .hint { opacity: 0.8; }
+    ol.script { padding-left: 22px; }
+    ol.script li { margin: 8px 0; }
+    @media (max-width: 900px) {
+      .slide { padding: 28px 22px 80px; }
+      .g2, .g3, .g4, .uml, .people { grid-template-columns: 1fr; }
+      .layer { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+    <div class="bar" id="bar"></div>
+
+    <section class="slide on">
+      <p class="kicker">Presentación técnica</p>
+      <h1 style="margin-top:18px">ClaimTrack</h1>
+      <p class="lead" style="margin-top:18px">Cómo funciona por dentro: del clic del cliente hasta el ticket en la base de datos.</p>
+      <div class="grid g3" style="margin-top:36px">
+        <div class="card"><h3>Qué es</h3><p>Web de atención y postventa. El cliente registra. El equipo gestiona.</p></div>
+        <div class="card"><h3>Dónde vive</h3><p>GitHub + Vercel. En el aire: claimtrack-ten.vercel.app</p></div>
+        <div class="card"><h3>Cómo se usa esto</h3><p>Flechas para pasar. Tecla <b>N</b> para ver qué decir en cada diapositiva.</p></div>
+      </div>
+      <div class="note">Abre diciendo: ClaimTrack no es un login ni un chat. Es un sistema de tickets de postventa con dos entradas, un número de caso y un historial.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Agenda · 8 minutos de explicación + demo</p>
+      <h2>De afuera hacia adentro</h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3>1. Lo que ve el usuario</h3>
+          <p>Dos puertas: cliente y equipo. Ciclo de vida del reclamo.</p>
+        </div>
+        <div class="card">
+          <h3>2. El modelo</h3>
+          <p>Clases UML y las 4 tablas reales: users, tickets, comments, ticket_events.</p>
+        </div>
+        <div class="card">
+          <h3>3. El software</h3>
+          <p>Next.js, Server Actions, Zod, SQLite. Qué archivo hace qué.</p>
+        </div>
+        <div class="card">
+          <h3>4. Demo en vivo</h3>
+          <p>Registrar un caso, verlo en el panel, cambiar estado y responder.</p>
+        </div>
+      </div>
+      <div class="note">No leas la agenda. Di: primero el producto, luego los datos, luego las capas de código, y al final lo abrimos en internet.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">El problema</p>
+      <h2>Postventa suele vivir en WhatsApp, correos y Excel</h2>
+      <div class="grid g3">
+        <div class="card"><h3>Sin número de caso</h3><p>El cliente pregunta “¿ya vieron lo mío?” y nadie sabe a cuál mensaje se refiere.</p></div>
+        <div class="card"><h3>Sin dueño</h3><p>El reclamo no tiene agente asignado. Se pierde entre el equipo.</p></div>
+        <div class="card"><h3>Sin historial</h3><p>No queda rastro de estados, respuestas ni notas internas.</p></div>
+      </div>
+      <div class="note">Frase útil: el costo no es el reclamo, es no poder seguirlo. ClaimTrack convierte un mensaje suelto en un caso con identidad.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">La solución</p>
+      <h2>Un ticket. Un número. Dos vistas.</h2>
+      <p class="lead">Cada reclamo nace como <b style="color:var(--ink)">TRK-AÑO-#####</b>. El cliente lo consulta con ese número y su correo. El equipo lo ve completo en la bandeja.</p>
+      <div class="flow" style="margin-top:28px">
+        <span class="chip">Cliente registra</span><span class="arrow">→</span>
+        <span class="chip now">Ticket TRK-2026-00005</span><span class="arrow">→</span>
+        <span class="chip">Equipo recibe</span><span class="arrow">→</span>
+        <span class="chip">Asigna y responde</span><span class="arrow">→</span>
+        <span class="chip">Resuelto / cerrado</span>
+      </div>
+      <div class="note">Señala el número de ticket: es la llave de todo el sistema. Sin login, esa llave es número + correo.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Producto</p>
+      <h2>Dos puertas, sin inicio de sesión</h2>
+      <div class="grid g2">
+        <div class="card">
+          <span class="tag">/portal</span>
+          <h3 style="margin-top:10px">Cliente</h3>
+          <p>Registra nombre, correo, tipo, categoría, asunto y descripción. Consulta con número de ticket + email. Ve comentarios públicos. No ve notas internas.</p>
+        </div>
+        <div class="card" style="background:#0f172a;color:#fff;border-color:#0f172a">
+          <span class="tag">/staff</span>
+          <h3 style="margin-top:10px;color:#fff">Equipo</h3>
+          <p style="color:#cbd5e1">Dashboard, bandeja, asignación, cambio de estado y prioridad, respuesta al cliente y notas internas.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px;font-size:15px">Decisión de diseño: no hay login. El portal se “identifica” con el correo. El panel de equipo usa un actor interno (el primer admin/agente de la base).</p>
+      <div class="note">Si preguntan por seguridad: es un prototipo académico. En producción iría login, roles y permisos. Hoy se simplificó a propósito.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Ciclo de vida</p>
+      <h2>Estados del ticket</h2>
+      <div class="flow" style="margin-bottom:24px">
+        <span class="chip now">nuevo</span><span class="arrow">→</span>
+        <span class="chip">en revisión</span><span class="arrow">→</span>
+        <span class="chip">en proceso</span><span class="arrow">→</span>
+        <span class="chip">esperando cliente</span><span class="arrow">→</span>
+        <span class="chip">resuelto</span><span class="arrow">→</span>
+        <span class="chip">cerrado</span>
+      </div>
+      <div class="grid g2">
+        <div class="card"><h3>Abiertos</h3><p>nuevo, en revisión, en proceso, esperando cliente. Esos son los que llenan la bandeja.</p></div>
+        <div class="card"><h3>Prioridad</h3><p>baja, media, alta, urgente. La bandeja ordena urgente primero.</p></div>
+      </div>
+      <div class="note">Cuando el agente responde al cliente, el sistema pasa el caso a “esperando cliente”. Eso se puede decir en la demo.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Modelo · UML</p>
+      <h2>Diagrama de clases (simplificado)</h2>
+      <div class="uml">
+        <div>
+          <div class="cls">
+            <header>Usuario</header>
+            <div class="sec">id<br>nombre<br>email<br>role<br>telefono</div>
+            <div class="sec">findOrCreateCustomer()<br>getStaffActor()</div>
+          </div>
+          <p class="rel">role = customer | agent | admin</p>
+        </div>
+        <div>
+          <div class="cls">
+            <header>Ticket</header>
+            <div class="sec">id · ticket_number<br>customer_id · assigned_to<br>tipo · categoría · prioridad · estado<br>asunto · descripción · producto · pedido</div>
+            <div class="sec">crear · asignar · cambiarEstado · comentar</div>
+          </div>
+          <p class="rel">1 cliente → * tickets &nbsp;|&nbsp; 0..1 agente asignado</p>
+        </div>
+        <div>
+          <div class="cls">
+            <header>Comentario</header>
+            <div class="sec">body<br>is_internal<br>autor</div>
+          </div>
+          <div class="cls" style="margin-top:12px">
+            <header>EventoTicket</header>
+            <div class="sec">created · status<br>assignment · priority<br>comment · internal_note</div>
+          </div>
+          <p class="rel">1 ticket → * comentarios y eventos</p>
+        </div>
+      </div>
+      <div class="note">Importante: en código hay UNA tabla users, no tres clases físicas. Cliente, agente y admin se distinguen por el campo role. Eso es herencia por discriminación, no tres tablas.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Modelo · base de datos</p>
+      <h2>4 tablas, no más</h2>
+      <div class="grid g2">
+        <div class="card"><h3>users</h3><p>Personas. El mismo registro sirve para cliente o staff según <b>role</b>.</p></div>
+        <div class="card"><h3>tickets</h3><p>El caso. Apunta al cliente (obligatorio) y al agente (opcional).</p></div>
+        <div class="card"><h3>comments</h3><p>Mensajes. <b>is_internal = 1</b> es nota del equipo; el cliente no la ve.</p></div>
+        <div class="card"><h3>ticket_events</h3><p>Bitácora: se creó, cambió estado, se asignó, se comentó.</p></div>
+      </div>
+      <p style="margin-top:16px;font-size:15px">Motor: SQLite vía @libsql/client. En tu PC es un archivo. En Vercel, por el plan gratis, vive en /tmp (los datos nuevos pueden resetearse).</p>
+      <div class="note">Si preguntan por MySQL: era la idea inicial. Se cambió a SQLite para poder publicar gratis sin servidor de base de datos. El modelo de tablas es el mismo que usaría MySQL.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Arquitectura</p>
+      <h2>Cuatro capas, de arriba abajo</h2>
+      <div class="layers">
+        <div class="layer"><strong>Páginas</strong><span>src/app — /portal para el cliente, /staff para el equipo. Next.js App Router.</span></div>
+        <div class="layer"><strong>Acciones</strong><span>src/actions/tickets.ts — el formulario llega aquí. Zod valida. Luego redirige.</span></div>
+        <div class="layer"><strong>Dominio</strong><span>src/lib/tickets.ts y users.ts — crear ticket, listar, comentar, stats. Sin SQL suelto en la UI.</span></div>
+        <div class="layer"><strong>Datos</strong><span>src/lib/db.ts — crea tablas, carga ejemplos y ejecuta SQL parametrizado.</span></div>
+      </div>
+      <div class="note">Frase: la pantalla no habla con la base. Pasa por acciones y por la capa de dominio. Eso es separación en 3 capas, aunque todo esté en un solo proyecto Next.js.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Flujo 1 · cliente</p>
+      <h2>Qué pasa al registrar un reclamo</h2>
+      <ol class="script">
+        <li>El formulario en <b>/portal/nuevo</b> manda los datos a la Server Action <b>createTicket</b>.</li>
+        <li><b>Zod</b> valida: nombre, correo, asunto ≥ 8, descripción ≥ 20, tipo y categoría permitidos.</li>
+        <li><b>findOrCreateCustomer</b> busca el email. Si no existe, crea un user con role customer.</li>
+        <li><b>nextTicketNumber</b> arma TRK-2026-00005 (año + consecutivo).</li>
+        <li>Inserta el ticket en estado <b>nuevo</b> y un evento <b>created</b>.</li>
+        <li>Redirige a <b>/portal/reclamos/{id}</b>. El equipo ya lo ve en la bandeja.</li>
+      </ol>
+      <div class="note">Este es el flujo más importante. Si solo explicas uno, explica este. En la demo: registra un caso con tu nombre y luego ábrelo en /staff.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Flujo 2 · equipo</p>
+      <h2>Qué hace el panel interno</h2>
+      <div class="grid g3">
+        <div class="card"><h3>/staff</h3><p>Contadores: abiertos, sin asignar, en proceso, resueltos. Lista reciente.</p></div>
+        <div class="card"><h3>/staff/inbox</h3><p>Filtros por estado, búsqueda y “sin asignar”. Orden por prioridad.</p></div>
+        <div class="card"><h3>/staff/reclamos/id</h3><p>Cambia estado, prioridad y agente. Responde. Deja nota interna.</p></div>
+      </div>
+      <p style="margin-top:16px;font-size:16px">La consulta del cliente usa <b>número de ticket + correo</b>. Si no coinciden, no muestra el caso. Las notas internas se ocultan con <code>is_internal = 0</code> en el portal.</p>
+      <div class="note">En la demo: abre el caso nuevo, asígnalo a Juan Hernandez, responde “ya lo vemos” y muestra que el cliente sí ve esa respuesta pero no una nota interna.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Personas de ejemplo</p>
+      <h2>La base nace con gente ya cargada</h2>
+      <div class="people">
+        <div class="card"><h3>Equipo</h3><p>Pablo Corrales — admin<br>Juan Manuel Yanes — agente<br>Juan Hernandez — agente</p></div>
+        <div class="card"><h3>Clientes</h3><p>Jean Carlos Saldaña<br>Jaime Ochoa<br>Correos: nombre@tracker.local</p></div>
+      </div>
+      <p style="margin-top:16px">Hay 4 tickets de muestra (silla faltante, garantía de licuadora, factura, devolución de lámpara). Sirven para demostrar la bandeja aunque nadie haya registrado nada todavía.</p>
+      <div class="note">Si Vercel reinicia, los casos nuevos pueden desaparecer y vuelven estos ejemplos. Dilo con honestidad: es la limitación del hosting gratis con SQLite en /tmp.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Stack</p>
+      <h2>De qué está hecho</h2>
+      <div class="grid g4">
+        <div class="card"><h3>Next.js 16</h3><p>App Router, React 19, TypeScript.</p></div>
+        <div class="card"><h3>Tailwind</h3><p>Interfaz en español, dos portales.</p></div>
+        <div class="card"><h3>libSQL / SQLite</h3><p>Tablas al arrancar. Seed automático.</p></div>
+        <div class="card"><h3>Vercel Hobby</h3><p>GitHub → build → claimtrack-ten.vercel.app</p></div>
+      </div>
+      <div class="code" style="margin-top:18px">
+        GitHub <b>pamblom/claimtrack</b>  →  Vercel construye Next.js  →  URL pública<br>
+        Cada push a <b>main</b> puede republicar. El primer deploy se lanzó a mano desde Create Deployment.
+      </div>
+      <div class="note">Tecnologías que puedes nombrar: Next.js, TypeScript, Server Actions, Zod, SQLite, GitHub, Vercel. No hace falta entrar a cada una.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Mapa de archivos</p>
+      <h2>Por si preguntan “¿dónde está el código?”</h2>
+      <div class="code">
+        src/app/page.tsx                 <b>home: dos puertas</b><br>
+        src/app/portal/nuevo/page.tsx    <b>formulario del cliente</b><br>
+        src/app/staff/(panel)/           <b>dashboard + inbox + detalle</b><br>
+        src/actions/tickets.ts           <b>createTicket, lookup, replies</b><br>
+        src/lib/tickets.ts               <b>reglas del ticket</b><br>
+        src/lib/users.ts                 <b>clientes y actor de equipo</b><br>
+        src/lib/db.ts                    <b>esquema SQL + seed</b><br>
+        src/lib/constants.ts             <b>tipos, categorías, estados</b>
+      </div>
+      <div class="note">Si el profesor pide “capas”: presentación (app), aplicación (actions), dominio (lib/tickets), persistencia (db). Un solo deploy, cuatro responsabilidades.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Guion de demo · 3 minutos</p>
+      <h2>Qué abrir mañana, en este orden</h2>
+      <ol class="script">
+        <li>Home: <b>https://claimtrack-ten.vercel.app</b> — muestra las dos puertas.</li>
+        <li>Cliente: <b>/portal/nuevo</b> — registra un reclamo corto con tu nombre y correo.</li>
+        <li>Copia el número TRK-… que sale en la confirmación.</li>
+        <li>Equipo: <b>/staff</b> — el caso nuevo aparece en abiertos.</li>
+        <li>Entra al caso: asigna, cambia a “en proceso”, responde una frase.</li>
+        <li>Vuelve al portal, consulta con número + correo: el cliente ve la respuesta, no una nota interna.</li>
+      </ol>
+      <div class="note">Ten el sitio abierto ANTES de hablar. Si Vercel anda lento, usa los tickets de ejemplo (Jean Carlos / Jaime) sin registrar uno nuevo.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Límites (dilo tú, no te lo pregunten)</p>
+      <h2>Qué es prototipo y qué no</h2>
+      <div class="grid g2">
+        <div class="card"><h3>No hay login</h3><p>El equipo no se autentica. Cualquiera con la URL /staff entra al panel. Sirve para la clase, no para un negocio real.</p></div>
+        <div class="card"><h3>SQLite en Vercel</h3><p>En el plan gratis los datos nuevos pueden borrarse al reiniciar. Los 5 ejemplos vuelven solos.</p></div>
+        <div class="card"><h3>Un actor de staff</h3><p>getStaffActor() toma al primer admin. Las acciones del equipo quedan a nombre de Pablo Corrales.</p></div>
+        <div class="card"><h3>Siguiente paso real</h3><p>Login, roles, y una base persistente (Turso o MySQL) si se publicara en serio.</p></div>
+      </div>
+      <div class="note">Esto suma puntos: muestras que entiendes el alcance. Un prototipo bien delimitado se ve más sólido que venderlo como sistema de producción.</div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Cierre</p>
+      <h1 style="margin-top:8px">ClaimTrack en una frase</h1>
+      <p class="lead" style="margin-top:20px">El cliente crea un ticket. La base lo guarda. El equipo lo ve, lo mueve de estado y deja rastro. Todo en una web pública, hecha con Next.js.</p>
+      <div class="grid g3" style="margin-top:32px">
+        <div class="card"><h3>Demo</h3><p>claimtrack-ten.vercel.app</p></div>
+        <div class="card"><h3>Código</h3><p>github.com/pamblom/claimtrack</p></div>
+        <div class="card"><h3>Preguntas</h3><p>¿Modelo, flujo o hosting?</p></div>
+      </div>
+      <div class="note">Cierra ofreciendo tres tipos de pregunta: del negocio, del modelo de datos, o de cómo se publicó. Así diriges el Q&amp;A.</div>
+    </section>
+
+    <div class="nav">
+      <span class="hint">← → &nbsp; N notas &nbsp; F pantalla completa</span>
+      <div>
+        <button type="button" onclick="prev()">←</button>
+        <span id="count" style="margin:0 12px">1 / 1</span>
+        <button type="button" onclick="next()">→</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const bar = document.getElementById("bar");
+    const count = document.getElementById("count");
+    const deck = document.getElementById("deck");
+    let i = 0;
+    function show(n) {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach((s, idx) => s.classList.toggle("on", idx === i));
+      count.textContent = (i + 1) + " / " + slides.length;
+      bar.style.width = ((i + 1) / slides.length * 100) + "%";
+    }
+    function next() { show(i + 1); }
+    function prev() { show(i - 1); }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); next(); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
+      if (e.key === "n" || e.key === "N") deck.classList.toggle("notes-on");
+      if (e.key === "f" || e.key === "F") {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+      }
+    });
+    show(0);
+  </script>
+</body>
+</html>
