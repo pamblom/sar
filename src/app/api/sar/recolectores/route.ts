@@ -3,6 +3,9 @@ async function json(data: unknown, status = 200) {
 }
 
 export async function GET() {
+  const { getCurrentUser } = await import("@/lib/auth");
+  const user = await getCurrentUser();
+  if (!user || user.Rol === "Recolector") return json({ error: "Inicia sesión." }, 401);
   const { userMetrics, ranking } = await import("@/lib/sar");
   const { queryRows } = await import("@/lib/db");
   const metrics = await userMetrics();
@@ -32,6 +35,9 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
+  const { getCurrentUser } = await import("@/lib/auth");
+  const user = await getCurrentUser();
+  if (!user || user.Rol === "Recolector") return json({ error: "Inicia sesión." }, 401);
   const { execute } = await import("@/lib/db");
   const body = (await request.json()) as { id?: number; estado?: string };
   const allowed = ["Activo", "Bloqueado", "Suspendido", "Vetado"];

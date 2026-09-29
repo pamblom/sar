@@ -381,7 +381,8 @@
   const exportBtn = document.getElementById('btn-export');
   if (exportBtn) {
     exportBtn.addEventListener('click', () => {
-      exportBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-tertiary">check</span> CSV Listo`;
+      exportBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-tertiary">check</span> PDF listo`;
+      window.location.href = "/api/sar/pdf?tipo=historial";
       setTimeout(() => {
         exportBtn.innerHTML = `<span class="material-symbols-outlined text-[16px]">file_download</span> Exportar`;
       }, 2000);
