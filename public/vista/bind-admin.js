@@ -192,20 +192,44 @@ async function show(name) {
       )
       .join("")}</ol>`;
   } else if (name === "materiales") {
+    const subsByCategory = {
+      "Plástico": ["PET (1)", "HDPE (2)", "PVC (3)", "LDPE (4)", "PP (5)", "PS (6)", "Otros (7)"],
+      "Papel y cartón": ["Cartón", "Papel blanco", "Papel mixto"],
+      Metal: ["Aluminio", "Fierro", "Cobre", "Bronce"],
+      Vidrio: ["Claro", "Verde", "Ámbar"],
+      Compuesto: ["Multicapa"],
+    };
+    for (const item of data.materiales) {
+      const list = subsByCategory[item.Categoria] || (subsByCategory[item.Categoria] = []);
+      if (item.Subcategoria && !list.includes(item.Subcategoria)) list.push(item.Subcategoria);
+    }
     const groups = {};
     for (const item of data.materiales) {
-      const key = item.Categoria || "Otros";
-      if (!groups[key]) groups[key] = [];
-      groups[key].push(item);
+      const category = item.Categoria || "Otros";
+      const sub = item.Subcategoria || "General";
+      if (!groups[category]) groups[category] = {};
+      if (!groups[category][sub]) groups[category][sub] = [];
+      groups[category][sub].push(item);
     }
-    const cards = (items) =>
-      items
-        .map(
-          (item) =>
-            `<article data-material-card data-name="${item.Nombre.toLowerCase()}" class="rounded-xl bg-[#123F36]/80 px-4 py-3"><strong>${item.Nombre}</strong> <span class="text-emerald-200/70">${item.Categoria} · ${item.Subcategoria || "General"} · ${item.Puntos_por_Kg} pts/kg</span></article>`,
-        )
-        .join("");
-    stage.innerHTML = `${heading("Materiales", "Cada categoría tiene subcategorías. En plástico, el tipo se identifica con el número de reciclaje.")}
+    const catalog = Object.entries(groups)
+      .map(([categoria, subs]) => {
+        const blocks = Object.entries(subs)
+          .map(
+            ([sub, items]) => `<details class="rounded-xl bg-[#0c221d]" open>
+              <summary class="cursor-pointer px-4 py-3 font-semibold text-emerald-200">${sub}</summary>
+              <div class="space-y-2 px-4 pb-3">${items
+                .map(
+                  (item) =>
+                    `<article data-material-card data-name="${item.Nombre.toLowerCase()}" class="rounded-xl bg-[#123F36]/80 px-4 py-3"><strong>${item.Nombre}</strong> <span class="text-emerald-200/70">${item.Puntos_por_Kg} pts/kg</span></article>`,
+                )
+                .join("")}</div>
+            </details>`,
+          )
+          .join("");
+        return `<section data-group="${categoria}"><h2 class="mb-2 text-sm font-semibold uppercase tracking-wider text-emerald-300">${categoria}</h2><div class="space-y-2">${blocks}</div></section>`;
+      })
+      .join("");
+    stage.innerHTML = `${heading("Materiales", "Cada categoría abre sus subcategorías. En plástico, el tipo se identifica con el número de reciclaje.")}
       <div class="relative max-w-md">
         <input id="buscar-material" placeholder="Buscar por nombre" autocomplete="off" class="w-full rounded-xl bg-black/30 px-4 py-3">
         <ul id="lista-materiales" class="absolute z-20 mt-1 hidden max-h-64 w-full overflow-auto rounded-xl border border-emerald-500/30 bg-[#0c221d] shadow-xl"></ul>
@@ -213,18 +237,20 @@ async function show(name) {
       <form id="nuevo-material" class="grid gap-2 rounded-2xl bg-[#123F36]/70 p-4 md:grid-cols-5">
         <input name="nombre" required placeholder="Nombre" class="rounded-lg bg-black/30 px-3 py-2">
         <select name="categoria" class="rounded-lg bg-black/30 px-3 py-2">
-          <option>Plástico</option><option>Papel y cartón</option><option>Metal</option><option>Vidrio</option><option>Compuesto</option>
+          ${Object.keys(subsByCategory).map((item) => `<option>${item}</option>`).join("")}
         </select>
-        <input name="subcategoria" required placeholder="Subcategoría, ej. PET (1)" class="rounded-lg bg-black/30 px-3 py-2">
+        <select name="subcategoria" class="rounded-lg bg-black/30 px-3 py-2"></select>
         <input name="puntos" type="number" step="0.01" required placeholder="Puntos/kg" class="rounded-lg bg-black/30 px-3 py-2">
         <button class="rounded-lg bg-emerald-400 font-bold text-[#081613]">Agregar</button>
       </form>
-      <div id="catalogo" class="space-y-5">${Object.entries(groups)
-        .map(
-          ([categoria, items]) =>
-            `<section data-group="${categoria}"><h2 class="mb-2 text-sm font-semibold uppercase tracking-wider text-emerald-300">${categoria}</h2><div class="space-y-2">${cards(items)}</div></section>`,
-        )
-        .join("")}</div>`;
+      <div id="catalogo" class="space-y-5">${catalog}</div>`;
+    const form = stage.querySelector("#nuevo-material");
+    const fillSubs = () => {
+      const options = subsByCategory[form.categoria.value] || [];
+      form.subcategoria.innerHTML = options.map((item) => `<option>${item}</option>`).join("");
+    };
+    fillSubs();
+    form.categoria.addEventListener("change", fillSubs);
     const search = stage.querySelector("#buscar-material");
     const list = stage.querySelector("#lista-materiales");
     const showMatches = () => {
@@ -242,7 +268,11 @@ async function show(name) {
         card.classList.toggle("hidden", query && !card.dataset.name.includes(query));
       });
       stage.querySelectorAll("[data-group]").forEach((group) => {
-        const visible = [...group.querySelectorAll("[data-material-card]")].some((card) => !card.classList.contains("hidden"));
+        group.querySelectorAll("details").forEach((details) => {
+          const visible = [...details.querySelectorAll("[data-material-card]")].some((card) => !card.classList.contains("hidden"));
+          details.classList.toggle("hidden", !visible);
+        });
+        const visible = [...group.querySelectorAll("details")].some((details) => !details.classList.contains("hidden"));
         group.classList.toggle("hidden", !visible);
       });
     };
