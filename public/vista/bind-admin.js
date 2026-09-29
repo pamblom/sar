@@ -119,7 +119,7 @@ function setActive(link) {
 }
 
 function heading(title, text) {
-  return `<div class="border-b border-white/10 pb-4"><p class="text-[11px] uppercase tracking-wider text-emerald-300/80">SAR Enterprise</p><h1 class="mt-1 text-3xl font-semibold text-white">${title}</h1><p class="mt-1 text-sm text-emerald-200/70">${text}</p></div>`;
+  return `<div class="border-b border-white/10 pb-4"><p class="text-[11px] uppercase tracking-wider text-emerald-300/80">SAR</p><h1 class="mt-1 text-3xl font-semibold text-white">${title}</h1><p class="mt-1 text-sm text-emerald-200/70">${text}</p></div>`;
 }
 
 function card(label, value) {
