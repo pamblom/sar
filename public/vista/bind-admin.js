@@ -1,5 +1,14 @@
 const money = new Intl.NumberFormat("es-CO");
 
+fetch("/api/sar/sesion").then(async (response) => {
+  if (!response.ok) {
+    location.replace("/vista/movil/login.html");
+    return;
+  }
+  const data = await response.json();
+  if (data.user?.rol === "Recolector") location.replace("/vista/movil/inicio.html");
+});
+
 function initials(name) {
   return name
     .split(" ")
@@ -183,11 +192,69 @@ async function show(name) {
       )
       .join("")}</ol>`;
   } else if (name === "materiales") {
-    stage.innerHTML = `${heading("Materiales", "Matriz usada para el puntaje y la huella.")}<form id="nuevo-material" class="grid gap-2 rounded-2xl bg-[#123F36]/70 p-4 md:grid-cols-4"><input name="nombre" required placeholder="Nombre" class="rounded-lg bg-black/30 px-3 py-2"><input name="categoria" required placeholder="Categoría" class="rounded-lg bg-black/30 px-3 py-2"><input name="puntos" type="number" step="0.01" required placeholder="Puntos/kg" class="rounded-lg bg-black/30 px-3 py-2"><button class="rounded-lg bg-emerald-400 font-bold text-[#081613]">Agregar</button></form><div class="space-y-2">${data.materiales
-      .map(
-        (item) => `<article class="rounded-xl bg-[#123F36]/80 px-4 py-3"><strong>${item.Nombre}</strong> <span class="text-emerald-200/70">${item.Categoria} · ${item.Puntos_por_Kg} pts/kg · ${item.Estado}</span></article>`,
-      )
-      .join("")}</div>`;
+    const groups = {};
+    for (const item of data.materiales) {
+      const key = item.Categoria || "Otros";
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(item);
+    }
+    const cards = (items) =>
+      items
+        .map(
+          (item) =>
+            `<article data-material-card data-name="${item.Nombre.toLowerCase()}" class="rounded-xl bg-[#123F36]/80 px-4 py-3"><strong>${item.Nombre}</strong> <span class="text-emerald-200/70">${item.Categoria} · ${item.Subcategoria || "General"} · ${item.Puntos_por_Kg} pts/kg</span></article>`,
+        )
+        .join("");
+    stage.innerHTML = `${heading("Materiales", "Cada categoría tiene subcategorías. En plástico, el tipo se identifica con el número de reciclaje.")}
+      <div class="relative max-w-md">
+        <input id="buscar-material" placeholder="Buscar por nombre" autocomplete="off" class="w-full rounded-xl bg-black/30 px-4 py-3">
+        <ul id="lista-materiales" class="absolute z-20 mt-1 hidden max-h-64 w-full overflow-auto rounded-xl border border-emerald-500/30 bg-[#0c221d] shadow-xl"></ul>
+      </div>
+      <form id="nuevo-material" class="grid gap-2 rounded-2xl bg-[#123F36]/70 p-4 md:grid-cols-5">
+        <input name="nombre" required placeholder="Nombre" class="rounded-lg bg-black/30 px-3 py-2">
+        <select name="categoria" class="rounded-lg bg-black/30 px-3 py-2">
+          <option>Plástico</option><option>Papel y cartón</option><option>Metal</option><option>Vidrio</option><option>Compuesto</option>
+        </select>
+        <input name="subcategoria" required placeholder="Subcategoría, ej. PET (1)" class="rounded-lg bg-black/30 px-3 py-2">
+        <input name="puntos" type="number" step="0.01" required placeholder="Puntos/kg" class="rounded-lg bg-black/30 px-3 py-2">
+        <button class="rounded-lg bg-emerald-400 font-bold text-[#081613]">Agregar</button>
+      </form>
+      <div id="catalogo" class="space-y-5">${Object.entries(groups)
+        .map(
+          ([categoria, items]) =>
+            `<section data-group="${categoria}"><h2 class="mb-2 text-sm font-semibold uppercase tracking-wider text-emerald-300">${categoria}</h2><div class="space-y-2">${cards(items)}</div></section>`,
+        )
+        .join("")}</div>`;
+    const search = stage.querySelector("#buscar-material");
+    const list = stage.querySelector("#lista-materiales");
+    const showMatches = () => {
+      const query = search.value.trim().toLowerCase();
+      const matches = data.materiales.filter((item) => !query || `${item.Nombre} ${item.Subcategoria || ""} ${item.Categoria}`.toLowerCase().includes(query));
+      list.innerHTML = matches
+        .slice(0, 12)
+        .map(
+          (item) =>
+            `<li><button type="button" data-pick="${item.Nombre}" class="block w-full px-4 py-2 text-left hover:bg-emerald-500/15"><strong>${item.Nombre}</strong><span class="block text-xs text-emerald-200/70">${item.Categoria} · ${item.Subcategoria || "General"}</span></button></li>`,
+        )
+        .join("");
+      list.classList.toggle("hidden", matches.length === 0);
+      stage.querySelectorAll("[data-material-card]").forEach((card) => {
+        card.classList.toggle("hidden", query && !card.dataset.name.includes(query));
+      });
+      stage.querySelectorAll("[data-group]").forEach((group) => {
+        const visible = [...group.querySelectorAll("[data-material-card]")].some((card) => !card.classList.contains("hidden"));
+        group.classList.toggle("hidden", !visible);
+      });
+    };
+    search.addEventListener("focus", showMatches);
+    search.addEventListener("input", showMatches);
+    list.addEventListener("click", (event) => {
+      const pick = event.target.closest("[data-pick]");
+      if (!pick) return;
+      search.value = pick.dataset.pick;
+      showMatches();
+      list.classList.add("hidden");
+    });
     stage.querySelector("#nuevo-material")?.addEventListener("submit", async (event) => {
       event.preventDefault();
       const form = event.currentTarget;
@@ -198,6 +265,7 @@ async function show(name) {
           accion: "material",
           nombre: form.nombre.value,
           categoria: form.categoria.value,
+          subcategoria: form.subcategoria.value,
           puntos: form.puntos.value,
           co2: 1,
         }),
@@ -206,8 +274,7 @@ async function show(name) {
       show("materiales");
     });
   } else if (name === "reporte") {
-    const lines = ["codigo,recolector,material,kilos,huella,estado", ...data.solicitudes.map((item) => [item.Codigo, item.Recolector, item.MaterialNombre, item.Kilos, item.Huella, item.Estado].join(","))];
-    stage.innerHTML = `${heading("Reporte ambiental", "Huella de los pesajes aprobados.")}${card("Huella acumulada", Number(data.metrics.huella || 0).toLocaleString("es-CO") + " kg CO₂")}<a class="inline-flex w-fit rounded-lg bg-emerald-400 px-4 py-2 font-bold text-[#081613]" download="reporte-sar.csv" href="data:text/csv,${encodeURIComponent(lines.join("\n"))}">Exportar CSV</a>`;
+    stage.innerHTML = `${heading("Reporte ambiental", "Huella de los pesajes aprobados.")}${card("Huella acumulada", Number(data.metrics.huella || 0).toLocaleString("es-CO") + " kg CO₂")}<a class="inline-flex w-fit rounded-lg bg-emerald-400 px-4 py-2 font-bold text-[#081613]" href="/api/sar/pdf?tipo=reporte">Exportar PDF</a>`;
   }
   stage.onclick = (event) => {
     const button = event.target.closest("[data-decide]");
@@ -215,6 +282,13 @@ async function show(name) {
     decide(Number(button.dataset.id), button.dataset.decide);
   };
 }
+
+document.querySelectorAll("button").forEach((button) => {
+  if (!/Exportar PDF/i.test(button.textContent || "")) return;
+  button.addEventListener("click", () => {
+    window.location.href = "/api/sar/pdf?tipo=recolectores";
+  });
+});
 
 document.querySelectorAll("aside nav a").forEach((link) => {
   const label = link.querySelector("span:not([class*='rounded'])")?.textContent?.trim() || link.textContent.trim();

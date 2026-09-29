@@ -1,7 +1,10 @@
+import { getCurrentUser } from "@/lib/auth";
 import { execute } from "@/lib/db";
 import { acreditarPuntos, dashboardMetrics, getSolicitud, listMateriales, listSolicitudes, notify, ranking } from "@/lib/sar";
 
 export async function GET() {
+  const user = await getCurrentUser();
+  if (!user || user.Rol === "Recolector") return Response.json({ error: "Inicia sesión." }, { status: 401 });
   const [metrics, solicitudes, materiales, tabla] = await Promise.all([
     dashboardMetrics(180),
     listSolicitudes({ estado: "todas" }),
@@ -12,12 +15,15 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const user = await getCurrentUser();
+  if (!user || user.Rol === "Recolector") return Response.json({ error: "Inicia sesión." }, { status: 401 });
   const body = (await request.json()) as {
     accion?: string;
     id?: number;
     motivo?: string;
     nombre?: string;
     categoria?: string;
+    subcategoria?: string;
     co2?: number;
     puntos?: number;
   };
@@ -52,10 +58,11 @@ export async function POST(request: Request) {
   if (body.accion === "material") {
     const nombre = String(body.nombre || "").trim();
     const categoria = String(body.categoria || "").trim();
-    if (!nombre || !categoria) return Response.json({ error: "Nombre y categoría son obligatorios." }, { status: 400 });
+    const subcategoria = String(body.subcategoria || "").trim();
+    if (!nombre || !categoria || !subcategoria) return Response.json({ error: "Nombre, categoría y subcategoría son obligatorios." }, { status: 400 });
     await execute(
-      "INSERT INTO Materiales (Nombre, Categoria, Impacto_Huella_Carbono, Puntos_por_Kg, Estado) VALUES (?, ?, ?, ?, 'Activo')",
-      [nombre, categoria, Number(body.co2) || 0, Number(body.puntos) || 0],
+      "INSERT INTO Materiales (Nombre, Categoria, Subcategoria, Impacto_Huella_Carbono, Puntos_por_Kg, Estado) VALUES (?, ?, ?, ?, ?, 'Activo')",
+      [nombre, categoria, subcategoria, Number(body.co2) || 0, Number(body.puntos) || 0],
     );
     return Response.json({ ok: true });
   }

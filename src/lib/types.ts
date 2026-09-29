@@ -30,6 +30,7 @@ export type Material = {
   ID_Material: number;
   Nombre: string;
   Categoria: string;
+  Subcategoria: string | null;
   Impacto_Huella_Carbono: number;
   Puntos_por_Kg: number;
   Estado: "Activo" | "Inactivo";

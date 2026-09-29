@@ -103,6 +103,61 @@ function databaseUrl() {
 const PASSWORD = "sar2026";
 const PIN = "2468";
 
+const MATERIAL_CATALOG = [
+  { nombre: "PET transparente", categoria: "Plástico", subcategoria: "PET (1)", co2: 1.52, puntos: 12 },
+  { nombre: "PET verde", categoria: "Plástico", subcategoria: "PET (1)", co2: 1.4, puntos: 11 },
+  { nombre: "PET aceite", categoria: "Plástico", subcategoria: "PET (1)", co2: 1.2, puntos: 9 },
+  { nombre: "HDPE natural", categoria: "Plástico", subcategoria: "HDPE (2)", co2: 1.25, puntos: 11 },
+  { nombre: "HDPE color", categoria: "Plástico", subcategoria: "HDPE (2)", co2: 1.18, puntos: 10 },
+  { nombre: "PVC rígido", categoria: "Plástico", subcategoria: "PVC (3)", co2: 0.7, puntos: 6 },
+  { nombre: "PVC flexible", categoria: "Plástico", subcategoria: "PVC (3)", co2: 0.55, puntos: 5 },
+  { nombre: "LDPE película", categoria: "Plástico", subcategoria: "LDPE (4)", co2: 0.9, puntos: 7 },
+  { nombre: "LDPE bolsas", categoria: "Plástico", subcategoria: "LDPE (4)", co2: 0.85, puntos: 6 },
+  { nombre: "PP rígido", categoria: "Plástico", subcategoria: "PP (5)", co2: 1.1, puntos: 9 },
+  { nombre: "PP tapas", categoria: "Plástico", subcategoria: "PP (5)", co2: 1.05, puntos: 8 },
+  { nombre: "PS rígido", categoria: "Plástico", subcategoria: "PS (6)", co2: 0.8, puntos: 5 },
+  { nombre: "PS espumado", categoria: "Plástico", subcategoria: "PS (6)", co2: 0.45, puntos: 3 },
+  { nombre: "Plástico mixto", categoria: "Plástico", subcategoria: "Otros (7)", co2: 0.4, puntos: 2 },
+  { nombre: "Cartón corrugado", categoria: "Papel y cartón", subcategoria: "Cartón", co2: 0.86, puntos: 6 },
+  { nombre: "Cartón plano", categoria: "Papel y cartón", subcategoria: "Cartón", co2: 0.8, puntos: 5 },
+  { nombre: "Papel archivo", categoria: "Papel y cartón", subcategoria: "Papel blanco", co2: 0.74, puntos: 5 },
+  { nombre: "Papel periódico", categoria: "Papel y cartón", subcategoria: "Papel mixto", co2: 0.6, puntos: 3 },
+  { nombre: "Aluminio", categoria: "Metal", subcategoria: "Aluminio", co2: 9.1, puntos: 28 },
+  { nombre: "Aluminio perfil", categoria: "Metal", subcategoria: "Aluminio", co2: 8.4, puntos: 24 },
+  { nombre: "Chatarra ferrosa", categoria: "Metal", subcategoria: "Fierro", co2: 1.65, puntos: 8 },
+  { nombre: "Cobre", categoria: "Metal", subcategoria: "Cobre", co2: 4.2, puntos: 32 },
+  { nombre: "Bronce", categoria: "Metal", subcategoria: "Bronce", co2: 3.1, puntos: 22 },
+  { nombre: "Vidrio claro", categoria: "Vidrio", subcategoria: "Claro", co2: 0.32, puntos: 4 },
+  { nombre: "Vidrio verde", categoria: "Vidrio", subcategoria: "Verde", co2: 0.3, puntos: 4 },
+  { nombre: "Vidrio ámbar", categoria: "Vidrio", subcategoria: "Ámbar", co2: 0.3, puntos: 4 },
+  { nombre: "Tetra Pak", categoria: "Compuesto", subcategoria: "Multicapa", co2: 0.91, puntos: 7 },
+];
+
+async function ensureMaterials(database: Client) {
+  try {
+    await database.execute("ALTER TABLE Materiales ADD COLUMN Subcategoria TEXT");
+  } catch {
+    // La columna ya existe.
+  }
+  for (const material of MATERIAL_CATALOG) {
+    const existing = await database.execute({
+      sql: "SELECT ID_Material FROM Materiales WHERE Nombre = ?",
+      args: [material.nombre],
+    });
+    if (existing.rows[0]) {
+      await database.execute({
+        sql: "UPDATE Materiales SET Categoria = ?, Subcategoria = ?, Impacto_Huella_Carbono = ?, Puntos_por_Kg = ? WHERE Nombre = ?",
+        args: [material.categoria, material.subcategoria, material.co2, material.puntos, material.nombre],
+      });
+    } else {
+      await database.execute({
+        sql: `INSERT INTO Materiales (Nombre, Categoria, Subcategoria, Impacto_Huella_Carbono, Puntos_por_Kg) VALUES (?, ?, ?, ?, ?)`,
+        args: [material.nombre, material.categoria, material.subcategoria, material.co2, material.puntos],
+      });
+    }
+  }
+}
+
 async function seed(database: Client) {
   const counted = await database.execute("SELECT COUNT(*) AS total FROM Usuarios");
   if (Number(counted.rows[0]?.total || 0) > 0) return;
@@ -224,24 +279,6 @@ async function seed(database: Client) {
         user.zona,
         user.lugar,
       ],
-    });
-  }
-
-  const materiales = [
-    { nombre: "PET transparente", categoria: "Plástico", co2: 1.52, puntos: 12 },
-    { nombre: "HDPE color", categoria: "Plástico", co2: 1.18, puntos: 10 },
-    { nombre: "Cartón corrugado", categoria: "Papel y cartón", co2: 0.86, puntos: 6 },
-    { nombre: "Papel archivo", categoria: "Papel y cartón", co2: 0.74, puntos: 5 },
-    { nombre: "Aluminio", categoria: "Metal", co2: 9.1, puntos: 28 },
-    { nombre: "Chatarra ferrosa", categoria: "Metal", co2: 1.65, puntos: 8 },
-    { nombre: "Vidrio claro", categoria: "Vidrio", co2: 0.32, puntos: 4 },
-    { nombre: "Tetra Pak", categoria: "Compuesto", co2: 0.91, puntos: 7 },
-  ];
-
-  for (const material of materiales) {
-    await database.execute({
-      sql: `INSERT INTO Materiales (Nombre, Categoria, Impacto_Huella_Carbono, Puntos_por_Kg) VALUES (?, ?, ?, ?)`,
-      args: [material.nombre, material.categoria, material.co2, material.puntos],
     });
   }
 
@@ -376,6 +413,7 @@ async function getClient() {
       for (const statement of SCHEMA_STATEMENTS) {
         await database.execute(statement);
       }
+      await ensureMaterials(database);
       await seed(database);
       client = database;
       return database;
